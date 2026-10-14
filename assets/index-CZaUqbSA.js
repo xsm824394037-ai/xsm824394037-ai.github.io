@@ -1,0 +1,1 @@
+import{_ as r}from"./index-D-OKb4nr.js";import{W as o,X as t,Y as n}from"./vue-c2hFjjkA.js";import"./ant-design-vue-CkX7VhhK.js";const s={};function a(c,e){return t(),o("div",null,e[0]||(e[0]=[n("h2",null,"数据导入（开发中）",-1)]))}const m=r(s,[["render",a]]);export{m as default};

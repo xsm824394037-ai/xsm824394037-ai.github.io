@@ -1,0 +1,1 @@
+import{b as i}from"./index-D-OKb4nr.js";const t=(e,...r)=>i("/biz/project/"+e,...r),n={pipelineProjectPage(e){return t("page",e,"get")},pipelineProjectSubmitForm(e,r=!1){return t(r?"edit":"add",e)},pipelineProjectDelete(e){return t("delete",e)},pipelineProjectDetail(e){return t("detail",e,"get")},pipelineProjectList(e){return t("list",e,"get")}};export{n as p};

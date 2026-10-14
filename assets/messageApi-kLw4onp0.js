@@ -1,0 +1,1 @@
+import{b as a}from"./index-D-OKb4nr.js";const s=(e,...t)=>a("/dev/message/"+e,...t),g={messagePage(e){return s("page",e,"get")},messageSend(e){return s("send",e)},messageDelete(e){return s("delete",e)},messageDetail(e){return s("detail",e,"get")}};export{g as m};

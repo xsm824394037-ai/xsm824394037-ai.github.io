@@ -1,0 +1,1 @@
+import{b as a}from"./index-D-OKb4nr.js";const t=(e,...i)=>a("/biz/device/"+e,...i),o={iotDevicePage(e){return t("page",e,"get")},iotDeviceSubmitForm(e,i=!1){return t(i?"edit":"add",e)},iotDeviceDelete(e){return t("delete",e)},iotDeviceDetail(e){return t("detail",e,"get")},iotDeviceAnalyseData(e){return t("analyseData",e,"get")}};export{o as i};

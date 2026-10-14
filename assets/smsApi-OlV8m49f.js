@@ -1,0 +1,1 @@
+import{b as t}from"./index-D-OKb4nr.js";const s=(e,...n)=>t("/dev/sms/"+e,...n),u={smsPage(e){return s("page",e,"get")},smsSendAliyun(e){return s("sendAliyun",e)},smsSendTencent(e){return s("sendTencent",e)},smsSendXiaonuo(e){return s("sendXiaonuo",e)},smsDelete(e){return s("delete",e)},smsDetail(e){return s("detail",e,"get")}};export{u as s};

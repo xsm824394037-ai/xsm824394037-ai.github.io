@@ -1,0 +1,1 @@
+const S=["PENDING","DFP"],_=["IN_PROGRESS","ING"],O=["IN_PROGRESS","ING","PENDING_ACCEPTANCE"],D=["COMPLETED","CANCELLED","FINISHED","CLOSED"],R=["COMPLETED","FINISHED","CLOSED"],N=E=>R.includes(E==null?void 0:E.status)&&!(Number(E==null?void 0:E.maintenanceRecordCount)>0);export{_ as W,S as a,D as b,N as c,O as d};

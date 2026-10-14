@@ -1,0 +1,1 @@
+import{_ as e}from"./index-D-OKb4nr.js";import{ag as o,a2 as r,X as s}from"./vue-c2hFjjkA.js";import"./ant-design-vue-CkX7VhhK.js";const a={};function c(n,_){const t=o("a-result");return s(),r(t,{status:"404",title:"未找到表单","sub-title":"对不起，该节点配置的自定义表单不存在，请联系管理员。"})}const f=e(a,[["render",c]]);export{f as default};

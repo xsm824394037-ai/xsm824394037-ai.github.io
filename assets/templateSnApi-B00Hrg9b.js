@@ -1,0 +1,1 @@
+import{b as a}from"./index-D-OKb4nr.js";const t=(e,...l)=>a("/flw/templateSn/"+e,...l),n={templateSnPage(e){return t("page",e,"get")},templateSnSubmitForm(e,l=!1){return t(l?"edit":"add",e)},templateSnDelete(e){return t("delete",e)},templateSnDetail(e){return t("detail",e,"get")},templateFlwTemplateSnSelector(e){return t("flwTemplateSnSelector",e,"get")}};export{n as t};
