@@ -157,7 +157,7 @@ Xids=()=>{
   if(p&&p!=="__ALL__")list=list.filter((x)=>x.id===p);
   return list.map((x)=>x.id);
 },
-Xreq=async(u)=>{try{const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api"+u,{headers:{token:Xtkk()}});const j=await r.json();return j&&j.code===200?j.data:null}catch(e){return null}},
+Xreq=async(u)=>{try{const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api/"+u,{headers:{token:Xtkk()}});const j=await r.json();return j&&j.code===200?j.data:null}catch(e){return null}},
 Xstat=async(ids)=>{
   const rs=await Promise.all(ids.map((id)=>Xreq("/biz/pipeLineBase/bigScreenInfo?projectId="+id+"&_="+Date.now())));
   // 设备是全局资产，多项目汇总时取最大值，不能简单相加（否则 2 个项目会算出 24 台）
@@ -257,18 +257,18 @@ XinitR=async()=>{
 XOK={v:0},
 XPUB="04298364ec840088475eae92a591e01284d1abefcda348b47eb324bb521bb03b0b2a5bc393f6b71dabb8f15c99a0050818b56b23f31743b93df9cf8948f15ddb54",
 Xsm2=()=>new Promise((r)=>{try{if(self&&self.sm2)return r();const s=document.createElement("script");s.src=new URL("./sm2-Zz1kQ7wa.js",import.meta.url).href;s.onload=()=>r();s.onerror=()=>r();document.head.appendChild(s)}catch(e){r()}}),
-Xdict=(t)=>{try{fetch("https://mars3d-monitor.app.workbuddy.host/api/dev/dict/tree",{headers:{token:t}}).then((x)=>x.json()).then((j)=>{
+Xdict=(t)=>{try{fetch(https://mars3d-monitor.app.workbuddy.host/api//dev/dict/tree",{headers:{token:t}}).then((x)=>x.json()).then((j)=>{
   if(j&&j.code===200&&j.data){try{localStorage.setItem("DICT_TYPE_TREE_DATA",JSON.stringify(j.data))}catch(e){}}}
 ).catch(()=>{})}catch(e){}},
 Xau=async()=>{try{
   if(XOK.v)return Xtk();
   let t=Xtk();
-  if(t){const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api/biz/project/page?pageSize=1&pageNumber=1&_="+Date.now(),{headers:{token:t}}).then((x)=>x.json()).catch(()=>null);
+  if(t){const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api//biz/project/page?pageSize=1&pageNumber=1&_="+Date.now(),{headers:{token:t}}).then((x)=>x.json()).catch(()=>null);
     if(r&&r.code===200){XOK.v=1;try{if(!localStorage.getItem("DICT_TYPE_TREE_DATA"))Xdict(t)}catch(e){}return t}}
   await Xsm2();
   if(!(self&&self.sm2&&self.sm2.doEncrypt))return"";
   const pwd=self.sm2.doEncrypt("123456",XPUB,1);
-  const lr=await fetch("https://mars3d-monitor.app.workbuddy.host/api/auth/b/doLogin",{method:"POST",headers:{"Content-Type":"application/json"},
+  const lr=await fetch(https://mars3d-monitor.app.workbuddy.host/api//auth/b/doLogin",{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({account:"Superadmin",password:pwd,validCode:"",validCodeReqNo:""})}).then((x)=>x.json());
   if(lr&&lr.code===200&&lr.data){try{localStorage.setItem("TOKEN",JSON.stringify(lr.data)),Xdict(lr.data)}catch(e){}XOK.v=1;return lr.data}
 }catch(e){try{Xlg("au:err "+e)}catch(_){}}
@@ -277,7 +277,7 @@ Xsc=p(""),Xsg=p(""),Xsh=p(""),
 Xm1="/assets/xtjcOn-Zz9kQ1wa.svg",Xm2="/assets/xtjc-Zz9kQ1wa.svg",Xg1="/assets/wszlOn-Zz9kQ1wa.svg",Xg2="/assets/wszl-Zz9kQ1wa.svg",
 Xes=(v)=>String(v==null?"":v).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),
 Xtk=()=>{try{const t=JSON.parse(localStorage.getItem("TOKEN"));return typeof t==="string"?t:""}catch(e){return""}},
-Xrq=async(u,q)=>{try{const s=new URLSearchParams(Object.assign({size:100,current:1},q||{}));const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api"+u+"?"+s.toString(),{headers:{token:Xtk()}});const j=await r.json();return j&&j.code===200?j.data:null}catch(e){return null}},
+Xrq=async(u,q)=>{try{const s=new URLSearchParams(Object.assign({size:100,current:1},q||{}));const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api/"+u+"?"+s.toString(),{headers:{token:Xtk()}});const j=await r.json();return j&&j.code===200?j.data:null}catch(e){return null}},
 Xrows=(d)=>(d&&d.records)||(Array.isArray(d)?d:[]),
 Xall=async(u,mx)=>{const p1=await Xrq(u);if(!p1)return{rows:[],total:0};let out=Xrows(p1).slice();const tot=typeof p1.total==="number"?p1.total:out.length;if(tot>out.length){let pages=Math.ceil(tot/100);if(pages>51)pages=51;const ns=[];for(let n=2;n<=pages;n++)ns.push(n);for(let i=0;i<ns.length;i+=6){const got=await Promise.all(ns.slice(i,i+6).map((n)=>Xrq(u,{current:n,size:100})));got.forEach((d)=>{out=out.concat(Xrows(d))});if(mx&&out.length>=mx)break}}const seen={},uniq=[];for(let i=0;i<out.length;i++){const k=out[i]&&out[i].id;if(k==null){uniq.push(out[i]);continue}if(seen[k])continue;seen[k]=1;uniq.push(out[i])}return{rows:(mx?uniq.slice(0,mx):uniq),total:tot}},
 Xok=(v)=>v===!0||v==="true"||v==="1"||v===1,
@@ -328,7 +328,7 @@ XmFetch=async(devId,s,e)=>{
     /* 超时保护：任何一次挂起都会让整条 Promise 链停住，进而卡死页面渲染 */
     const ac=(typeof AbortController!=="undefined")?new AbortController():null;
     const tm=ac?setTimeout(()=>{try{ac.abort()}catch(err){}},6000):null;
-    const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api"+u,{headers:{token:Xtk()},signal:ac?ac.signal:undefined});
+    const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api/"+u,{headers:{token:Xtk()},signal:ac?ac.signal:undefined});
     if(tm)clearTimeout(tm);
     const j=await r.json();
     /* 约定：null = 请求失败（可重试）；[] = 请求成功但该时段无数据（不可重试） */
@@ -391,7 +391,7 @@ XmProbe=async()=>{
 },
 Xmpost=async(u,body)=>{
   try{
-    const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api"+u,{method:"POST",headers:{"Content-Type":"application/json",token:Xtk()},body:JSON.stringify(body||{})});
+    const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api/"+u,{method:"POST",headers:{"Content-Type":"application/json",token:Xtk()},body:JSON.stringify(body||{})});
     return (await r.json())||{code:-1};
   }catch(e){return{code:-1,msg:String(e)}}
 },
@@ -1012,7 +1012,7 @@ XmCsv=(rows,name)=>{
 XmMe=async()=>{
   if(XM.me)return XM.me;
   try{
-    const r=await fetch("https://mars3d-monitor.app.workbuddy.host/api/auth/b/getLoginUser",{headers:{token:Xtk()}});
+    const r=await fetch(https://mars3d-monitor.app.workbuddy.host/api//auth/b/getLoginUser",{headers:{token:Xtk()}});
     const j=await r.json();
     if(j&&j.code===200&&j.data)XM.me={id:String(j.data.id||""),name:j.data.name||j.data.account||""};
   }catch(e){}
@@ -1404,23 +1404,787 @@ XalmDraw=()=>{
 XalmRefresh=()=>{const b=document.getElementById("xalm");if(b)XalmDraw()},
 XalmClose=()=>{const b=document.getElementById("xalm");if(b)b.remove();const m=document.getElementById("xalmmask");if(m)m.remove()},
 
-XloadGov=async()=>{try{
-  Xlg("gov:start");
-  const R=await Promise.all([Xall("/biz/project/page",50),Xall("/biz/inspectionPlan/page",200),Xall("/biz/inspectionRecords/page",200),Xall("/biz/workOrder/page",200)]);
-  const prj=R[0].rows||[],pln=R[1].rows||[],rec=R[2].rows||[],wo=R[3].rows||[];
-  Xlg("gov:rows "+[prj.length,pln.length,rec.length,wo.length]);
-  const done=pln.filter((p)=>String(p.status||"").toUpperCase()==="COMPLETED").length;
-  const issue=rec.filter((r)=>r.inspectionResult&&String(r.inspectionResult).toUpperCase()!=="NORMAL").length;
-  const DONE=["COMPLETED","CLOSED","DONE","FINISHED","RESOLVED"];
-  const pend=wo.filter((w)=>String(w.status||"").toUpperCase()==="PENDING").length;
-  const closed=wo.filter((w)=>DONE.indexOf(String(w.status||"").toUpperCase())>=0).length;
-  const rate=(a,b)=>b?Math.round(a/b*100)+"%":"0%";
-  const F=(typeof Fe!=="undefined"&&Fe.value)||{};
-  Xsg.value=Xpan("管网资产概览","overview-panel",Xst([{v:prj.length,l:"项目总数"},{v:F.totalLength||"0.00",l:"管线总长(km)"},{v:F.pipeCount||0,l:"管段数量"},{v:F.manholeCount||0,l:"检查井"}]))
-    +Xpan("巡检执行","overview-panel xfill",Xst([{v:pln.length,l:"巡检计划"},{v:done,l:"已完成"},{v:rate(done,pln.length),l:"完成率"},{v:issue,l:"问题记录"}]));
-  Xsh.value=Xpan("隐患治理","overview-panel",Xst([{v:wo.length,l:"工单总数"},{v:pend,l:"待处理"},{v:closed,l:"已闭环"},{v:rate(closed,wo.length),l:"整改率"}]))
-    +Xpan("最新工单","plans-panel xfill","<div class='plan-item' data-v-14ae79c9 style='display:flex;flex-direction:column;gap:8px;padding:12px'>"+(wo.length?wo.slice(0,12).map((w)=>{const st=String(w.status||"");return "<div style='display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px;background:rgba(99,129,191,.2);border-radius:8px;border:1px solid rgba(148,163,184,.2)'><div style='flex:1;min-width:0'><div style='font-size:13px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>"+Xes(w.workOrderCode||w.id)+"</div><div class='detail-item' data-v-14ae79c9><span class='label' data-v-14ae79c9>"+Xes(w.priority||"-")+"</span><span>"+Xes(w.address||w.location||w.issueDesc||"")+"</span></div></div><div class='status "+(DONE.indexOf(st.toUpperCase())>=0?"status-online":"status-offline")+"' data-v-14ae79c9><span class='status-dot' data-v-14ae79c9></span>"+Xes(st||"待处理")+"</div></div>"}).join(""):"<div style='color:#94a3b8;font-size:12px;padding:6px'>暂无工单</div>")+"</div>"),Xflush();
-}catch(e){console.error("[XloadGov]",e),Xlg("gov:err "+e),Xsg.value=Xerr("管网治理"),Xsh.value=Xerr("隐患治理")}};let G=p(!1);const we=p([{key:"wsq",class:"first-level-node",title:"污水区",children:[{key:"wsq1",title:"一级污水区"},{key:"wsq2",title:"二级污水区"}]},{key:"layers",title:"管网",class:"first-level-node",children:[{key:"firstlevel",title:"一级管网",children:[]},{key:"secondlevel",title:"二级管网",children:[{key:"WSLINE",title:"污水管网"},{key:"YSLINE",title:"雨水管网"}]}]},{key:"well",class:"first-level-node",title:"管井"},{key:"devices",title:"设备",class:"first-level-node",children:[{key:"meter",title:"水位计"},{key:"flow",title:"流量计"},{key:"quality",title:"水质检测仪"}]}]),Ne=["wsq","layers","devices","well"],i=p({isOnline:!1,position:{longitude:110.45,latitude:29.5665},battery:85,status:"patrolling",currentTask:"管网巡检任务A",currentRoute:"",taskCycle:"",taskStatus:"",routeIds:[],baseTaskName:"管网巡检任务A",videoUrl:null,videoStatus:"disconnected",videoError:null,lastUpdate:new Date}),De=p([{id:"001",name:"巡检机器人-001",status:"active",statusText:"巡检中",battery:85,location:"110.450000, 29.566500",position:"110.450000, 29.566500",task:"管网巡检任务A",updateTime:"11:04:51"},{id:"002",name:"巡检机器人-002",status:"charging",statusText:"充电中",battery:45,location:"110.460000, 29.567500",position:"110.460000, 29.567500",task:"待机",updateTime:"10:58:23"},{id:"003",name:"巡检机器人-003",status:"maintenance",statusText:"维护中",battery:92,location:"110.470000, 29.568500",position:"110.470000, 29.568500",task:"设备维护",updateTime:"09:15:42"}]),H=p({visible:!1,selectedTask:null,dragging:!1,position:{x:0,y:0},offset:{x:0,y:0}}),dt=()=>{H.value.visible=!0,H.value.position={x:0,y:0}},ve=()=>{H.value.visible=!1,H.value.dragging=!1},Ce=l=>l.inspectionRoute.split(",").map(t=>t.trim()).filter(Boolean),_e=l=>{var t;Object.assign(i.value,{currentTask:l.planName,currentRoute:l.inspectionRoute,taskCycle:l.cycle,taskStatus:l.statusText,routeIds:Ce(l),baseTaskName:l.planName}),H.value.selectedTask=l,i.value.routeIds.length>0&&((t=T.value)!=null&&t.highlightRoutes)&&T.value.highlightRoutes(i.value.routeIds),ve()},Oe=l=>{H.value.dragging=!0,H.value.offset.x=l.clientX-H.value.position.x,H.value.offset.y=l.clientY-H.value.position.y,document.addEventListener("mousemove",Me),document.addEventListener("mouseup",Pe),l.preventDefault()},Me=l=>{H.value.dragging&&(H.value.position.x=l.clientX-H.value.offset.x,H.value.position.y=l.clientY-H.value.offset.y)},Pe=()=>{H.value.dragging=!1,document.removeEventListener("mousemove",Me),document.removeEventListener("mouseup",Pe)},R=p(null),w=p(!1),$=p(!1),J=p(!0),x=p(null),Fe=p({totalLength:"0.00",pipeCount:0,manholeCount:0,deviceCount:0}),ie=p({id:"",projectName:"",projectIntroduction:""}),qe=p([]),Ie=p([]),Te=p([]),ot=p([]),pe=p([]),K=p(null);let se=0;const fe=p(!1),je=p(!0),St=p({}),Ye=p([]),ke=p([]),vt=p(!1),We=p({x:0,y:0}),Ge=p(!1),It=p({x:0,y:0}),Re=p(null),ze=p([]),Ze=p(""),nt=p({}),me=p({}),el=p(null),Rt=p(!1),Ot=p(!1),Lt=p([]),_l=p([]),rl=p([]),Mt=p(0),Pt=p(1),pt=p(10);Kt(()=>Math.max(1,Math.ceil(Mt.value/pt.value)));const cl=p(""),At=()=>{const l=(cl.value||"").toString();let t=Lt.value||[];l&&(t=t.filter(b=>b.dataType===l)),t=t.slice().sort((b,N)=>new Date(b.collectionTime)-new Date(N.collectionTime)),_l.value=t,Mt.value=t.length,Pt.value>Math.ceil((Mt.value||1)/pt.value)&&(Pt.value=1);const o=(Pt.value-1)*pt.value,y=o+pt.value;rl.value=t.slice(o,y)};ut([Pt,pt],()=>{At()}),ut(ee,l=>{l?T.value&&T.value.addRobotMarker&&T.value.addRobotMarker(i.value.position):T.value&&T.value.removeRobotMarker&&T.value.removeRobotMarker()});const ft=p(null),He=p("disconnected"),$t=p(0);let Ft=null,tl=null,Yt=null,Et=null,Ve=[],Se=0,Le=!1,Ke=-1;const ye=["/video/监测视频.mp4","/video/监测视频1.mp4"];let mt=0;const xt=p(null),Wt=p(null),yt=p(null);let Ue=null,ce=null,he=null;const ul={valve:"🔧",pump:"🚰",pressure:"📊",flow:"🌊",temperature:"🌡️",level:"📏",quality:"🧪",meter:"⏱️",hydrant:"🚒",manhole:"🕳️",tank:"🛢️",filter:"🪣"},Ht=l=>{const t=(l||"").toString().toLowerCase();return t.includes("valve")||t.includes("阀")?"valve":t.includes("pump")||t.includes("泵")?"pump":t.includes("pressure")||t.includes("压")?"pressure":t.includes("flow")||t.includes("流")?"flow":t.includes("temp")||t.includes("温")?"temperature":t.includes("level")||t.includes("液位")?"level":t.includes("quality")||t.includes("水质")?"quality":t.includes("meter")||t.includes("表")?"meter":t.includes("hydrant")||t.includes("消防")?"hydrant":t.includes("manhole")||t.includes("井")?"manhole":t.includes("tank")||t.includes("罐")?"tank":t.includes("filter")||t.includes("滤")?"filter":t},Vt=()=>{try{if(!Wt.value){console.warn("管材统计图表DOM元素不存在，跳过渲染");return}Wt.value.innerHTML=Xmt(qe.value);return;ce&&(ce.dispose(),ce=null),ce=wl(Wt.value);const l=(qe.value||[]).map(o=>{let y=o.material;return(!y||y==="undefined"||y==="null")&&(y="普通材质"),y}),t=(qe.value||[]).map(o=>o.countNum);ce==null||ce.setOption({tooltip:{trigger:"axis"},grid:{left:40,right:60,top:30,bottom:20},xAxis:{type:"category",data:l,name:"管材类型",nameTextStyle:{color:"#cbd5e1",fontSize:12},axisLabel:{color:"#cbd5e1",show:!0,fontSize:11},axisLine:{show:!0,lineStyle:{color:"#475569"}},axisTick:{show:!0,lineStyle:{color:"#475569"}}},yAxis:{type:"value",name:"数量",nameTextStyle:{color:"#cbd5e1",fontSize:12},axisLabel:{color:"#cbd5e1",show:!0,fontSize:11},axisLine:{show:!0,lineStyle:{color:"#475569"}},axisTick:{show:!0,lineStyle:{color:"#475569"}},splitLine:{show:!0,lineStyle:{color:"#334155",type:"dashed"}}},series:[{type:"bar",name:"管材",data:t,barMaxWidth:26,itemStyle:{color:"#60a5fa"}}]})}catch(l){console.error("管材统计图表渲染失败:",l)}},dl=()=>{if(yt.value)try{he&&he.dispose(),he=wl(yt.value);const l=Ye.value.filter(o=>o.value>0);if(l.length===0){const o={backgroundColor:"transparent",graphic:{type:"text",left:"center",top:"middle",style:{text:"暂无设备数据",fontSize:14,fill:"#94a3b8"}}};he.setOption(o);return}const t={backgroundColor:"transparent",tooltip:{trigger:"item",backgroundColor:"rgba(15, 23, 42, 0.95)",borderColor:"rgba(255, 255, 255, 0.1)",textStyle:{color:"#e2e8f0"},formatter:o=>`${o.data.icon} ${o.data.name}<br/>数量: ${o.data.value}<br/>占比: ${o.percent}%`},legend:{orient:"vertical",left:"left",top:"center",textStyle:{color:"#94a3b8",fontSize:11},itemGap:12,formatter:o=>{const y=l.find(b=>b.name===o);return y?`${y.icon} ${o}`:o}},series:[{name:"设备分布",type:"pie",radius:["45%","75%"],center:["65%","50%"],avoidLabelOverlap:!1,itemStyle:{},label:{show:!1,position:"center"},emphasis:{label:{show:!0,fontSize:16,fontWeight:"bold",color:"#ffffff",formatter:o=>`${o.data.icon}
+/* ================= 第四阶段：管网治理 =================
+ * 布局：左栏 Xsg（项目组织） / 右栏 Xsh（现场资源）
+ *
+ * 数据策略（后端缺字段，按现有数据派生）：
+ *   - 项目类型：project.extJson.gtype，缺省按 项目名/编号 关键字派生，枚举 普查/检测/清淤/修复/新建
+ *   - 项目状态：关联工单全部闭环 → 已完工，否则 进行中（后端无状态字段）
+ *   - 项目时间：createTime（后端无工期字段）
+ *   - 标段下级：该项目关联的巡检计划（后端无 parentId / 标段表）
+ *   - 机械状态：所在管线有处理中工单 → 作业中；离线/非正常 → 维护；其余 → 待命
+ *   - 工单设备：工单 pipelineIds 命中管线上的设备；设备表即既有 iotDevice
+ *   - 资料下载：/dev/file/download?id=（实测 200 可下载；/api/dev/file/download 会 500）
+ *
+ * 交互隔离：用 data-xg + Xgact 独立事件委托，不改动第三阶段 Xact / data-xa
+ */
+XG={load:0,hook:0,prj:[],org:[],file:[],wo:[],plan:[],rec:[],prjById:{},fileById:{},
+    city:"__ALL__",dist:"__ALL__",sel:"",key:"",ftype:"__ALL__",fstate:"__ALL__",ftime:"__ALL__",
+    exp:{},rtab:"unit",devF:"__ALL__",woF:"__ALL__",detail:"",intro:"",dev:"",tasks:"",live:"",toast:""},
+Xgdt=(s)=>{try{return Xday(Xts(s))}catch(e){return String(s||"").slice(0,10)}},
+/* 通用表格：cols 元素可为 "标题" 或 ["标题","宽度%"]；传宽度时启用 table-layout:fixed，
+   单元格 nowrap + 省略号，避免出现横向滚动条（被截断内容可用 title 悬浮查看） */
+Xgtbl=(cols,rows,empty)=>{
+  const fixed=(cols||[]).some((c)=>Array.isArray(c));
+  const clip="overflow:hidden;white-space:nowrap;text-overflow:ellipsis";
+  const title=(c)=>Xes(String(c).replace(/<[^>]*>/g,"")).replace(/'/g,"&#39;");
+  const th=(cols||[]).map((c)=>{
+    const t=Array.isArray(c)?c[0]:c,w=Array.isArray(c)?c[1]:"";
+    return "<th style='padding:5px 6px;text-align:left;color:#bfdbfe;font-weight:600;white-space:nowrap;background:rgba(30,58,138,.45);"+
+      "border-bottom:1px solid rgba(148,163,184,.3);"+clip+(w?";width:"+w:"")+"' data-v-14ae79c9>"+Xes(t)+"</th>"}).join("");
+  const tb=(rows||[]).map((r)=>"<tr>"+r.map((c)=>{
+    const st="padding:5px 6px;color:#cbd5e1;border-bottom:1px solid rgba(148,163,184,.15);vertical-align:top"+(fixed?";"+clip:"");
+    return "<td "+((fixed&&String(c).indexOf("<")<0)?"":"title='"+title(c)+"' ")+"style='"+st+"' data-v-14ae79c9>"+c+"</td>"}).join("")+"</tr>").join("");
+  return "<div style='"+(fixed?"overflow-x:hidden;":"overflow:auto;")+"overflow-y:auto' data-v-14ae79c9>"+
+    "<table style='width:100%;border-collapse:collapse;font-size:12px"+(fixed?";table-layout:fixed":"")+"' data-v-14ae79c9><thead><tr>"+th+"</tr></thead><tbody>"+
+    (tb||"<tr><td colspan='"+cols.length+"' style='padding:10px;color:#64748b;text-align:center' data-v-14ae79c9>"+Xes(empty||"暂无数据")+"</td></tr>")+"</tbody></table></div>";
+},
+Xgbar=(pct)=>"<div style='height:6px;background:rgba(100,116,139,.35);border-radius:3px;overflow:hidden;min-width:70px' data-v-14ae79c9>"+
+  "<div style='height:100%;width:"+(pct||0)+"%;background:linear-gradient(90deg,#38bdf8,#6366f1)' data-v-14ae79c9></div></div>",
+Xgbtn=(txt,act,val,cls)=>"<button type='button' class='xbtn sm "+String(cls||"")+"' data-xg='"+act+"' data-xv='"+Xes(val||"")+"' data-v-14ae79c9>"+Xes(txt)+"</button>",
+/* ---------- ① 区域 / 项目 层级选择器（复用第一阶段 XRMAP 数据源；独立实例避免 id 冲突） ---------- */
+XgCity=()=>{const m=(typeof XRMAP!=="undefined"&&XRMAP)||{},s=[];
+  (XG.prj||[]).forEach((p)=>{const c=(m[p.id]||[])[0]||"未划分";if(s.indexOf(c)<0)s.push(c)});return s},
+XgDist=()=>{const m=(typeof XRMAP!=="undefined"&&XRMAP)||{},s=[];
+  (XG.prj||[]).forEach((p)=>{const g=m[p.id]||[];if(XG.city!=="__ALL__"&&g[0]!==XG.city)return;
+    const d=g[1]||"未划分";if(s.indexOf(d)<0)s.push(d)});return s},
+XgProjs=()=>{const m=(typeof XRMAP!=="undefined"&&XRMAP)||{};
+  return (XG.prj||[]).filter((p)=>{const g=m[p.id]||[];
+    return (XG.city==="__ALL__"||g[0]===XG.city)&&(XG.dist==="__ALL__"||g[1]===XG.dist)})},
+Xgsel=(lab,opts,val,act)=>"<div style='display:flex;align-items:center;gap:6px;padding:3px 8px' data-v-14ae79c9>"+
+  "<span style='width:40px;flex:none;font-size:12px;color:#cbd5e1' data-v-14ae79c9>"+Xes(lab)+"</span>"+
+  "<select data-xg='"+act+"' style='flex:1;min-width:0;height:26px;font-size:12px;color:#fff;background:#0f172ae6;border:1px solid rgba(148,163,184,.4);border-radius:4px;padding:0 4px;outline:none' data-v-14ae79c9>"+
+  opts.map((o)=>"<option value='"+Xes(o.v)+"'"+(String(o.v)===String(val)?" selected":"")+">"+Xes(o.t)+"</option>").join("")+"</select></div>",
+/* ---------- ② 项目类型 / 状态 派生 ---------- */
+XGTYPE=[["SURVEY","普查"],["DETECT","检测"],["DREDGE","清淤"],["REPAIR","修复"],["BUILD","新建"]],
+XgTypeName=(k)=>{const t=(XGTYPE||[]).filter((x)=>x[0]===k)[0];return t?t[1]:"未分类"},
+XgTypeOf=(p)=>{
+  let t="";
+  try{const e=JSON.parse(p.extJson||"{}");t=e.gtype||""}catch(err){}
+  if(t)return t;
+  const c=String(p.projectCode||"")+" "+String(p.projectName||"");
+  if(/清淤|DREDGE/i.test(c))return "DREDGE";
+  if(/修复|REPAIR/i.test(c))return "REPAIR";
+  if(/检测|DETECT|CCTV|QV/i.test(c))return "DETECT";
+  if(/新建|BUILD|铺设/i.test(c))return "BUILD";
+  return "SURVEY";
+},
+/* 项目关联工单：后端无 projectId，用工单 location/address 命中项目名派生，无命中则全量兜底 */
+XgWoOf=(p)=>{
+  const all=XG.wo||[];
+  if(!p)return all;
+  const nm=String(p.projectName||"");
+  if(!nm)return all;
+  const hit=all.filter((w)=>(String(w.location||"")+String(w.address||"")+String(w.description||"")).indexOf(nm)>=0);
+  return hit.length?hit:all;
+},
+XgDone=(w)=>["COMPLETED","CLOSED","DONE","FINISHED","RESOLVED"].indexOf(String(w.status||"").toUpperCase())>=0,
+XgStateOf=(p)=>{
+  const wo=XgWoOf(p)||[];
+  if(!wo.length)return "未开始";
+  return wo.some((w)=>!XgDone(w))?"进行中":"已完工";
+},
+XgProgOf=(p)=>{
+  const wo=XgWoOf(p)||[];
+  if(!wo.length)return 0;
+  return Math.round(wo.filter(XgDone).length/wo.length*100);
+},
+/* ③ 标段下级：该项目关联的巡检计划（后端无标段表） */
+XgKidsOf=(p)=>{
+  const nm=String(p.projectName||"");
+  if(!nm)return [];
+  return (XG.plan||[]).filter((x)=>(String(x.planName||"")+String(x.descText||"")).indexOf(nm)>=0);
+},
+/* ⑤ 计划数据 = 真实关联计划 + 前端演示计划（后端无 projectId 关联字段，演示数据按项目 id 确定性生成，刷新不变） */
+XgPlans=(p)=>{
+  const real=XgKidsOf(p);
+  const y=String(p.createTime||"").slice(0,4);
+  const yr=(y>="2020"&&y<="2027")?y:"2025";
+  const seed=String(p.id||"0").split("").reduce((a,c)=>a+c.charCodeAt(0),0);
+  const demo=[
+    {planType:"普查",planName:"供排水管网结构性普查",cycle:"季度",  status:["已完成","进行中","未开始"][seed%3],     startTime:yr+"-03-01",endTime:yr+"-05-31"},
+    {planType:"检测",planName:"CCTV 管道缺陷检测",    cycle:"月度",  status:["进行中","未开始","已完成"][(seed+1)%3], startTime:yr+"-06-01",endTime:yr+"-09-30"},
+    {planType:"清淤",planName:"雨污水管道清淤疏浚",   cycle:"半月",  status:["未开始","已完成","进行中"][(seed+2)%3], startTime:yr+"-07-01",endTime:yr+"-10-31"},
+    {planType:"修复",planName:"破损管段非开挖修复",   cycle:"长期",  status:["进行中","未开始","已完成"][(seed+3)%3], startTime:yr+"-09-01",endTime:(+yr+1)+"-03-31"},
+    {planType:"新建",planName:"新建管网接入工程",     cycle:"季度",  status:["未开始","进行中","未开始"][(seed+4)%3], startTime:(+yr+1)+"-01-01",endTime:(+yr+1)+"-06-30"}
+  ];
+  return real.concat(demo.map((d)=>Object.assign({demo:1},d)));
+},
+/* ---------- ⑤ 计划 / 工单 / 量化考核 统计工具（统计视图备用；当前左栏面板展示计划明细表 + 工单完成情况） ---------- */
+XgPct=(a,b)=>b?Math.round(a/b*100):0,
+/* 计划：按状态 / 按类型 汇总 */
+XgPlanStat=(plans)=>{
+  const S=[["已完成",0],["进行中",0],["未开始",0]],T={};
+  (plans||[]).forEach((k)=>{
+    const st=String(k.status||"未开始"),hit=S.filter((x)=>x[0]===st)[0];
+    if(hit)hit[1]++;else S.push([st,1]);
+    const tp=String(k.planType||"未分类");T[tp]=(T[tp]||0)+1;
+  });
+  const done=(S.filter((x)=>x[0]==="已完成")[0]||[0,0])[1];
+  return {total:(plans||[]).length,states:S,types:Object.keys(T).map((k)=>[k,T[k]]).sort((a,b)=>b[1]-a[1]),done:done};
+},
+/* 工单：按状态汇总（中文沿用第三阶段 XwoSt） */
+XgWoStat=(wo)=>{
+  const M={},O=["PENDING","IN_PROGRESS","PENDING_ACCEPTANCE","COMPLETED","CANCELLED"];
+  (wo||[]).forEach((w)=>{const s=String(w.status||"").toUpperCase()||"OTHER";M[s]=(M[s]||0)+1});
+  const rows=Object.keys(M).map((s)=>[s,M[s]]).sort((a,b)=>{
+    const i=O.indexOf(a[0]),j=O.indexOf(b[0]);return (i<0?99:i)-(j<0?99:j)});
+  const sum=(arr)=>arr.reduce((a,s)=>a+(M[s]||0),0);
+  return {total:(wo||[]).length,
+    rows:rows.map((r)=>[(XwoSt({status:r[0]})[0]||r[0]),r[1]]),
+    done:sum(["COMPLETED","CLOSED","DONE","FINISHED","RESOLVED"]),
+    open:sum(["PENDING","IN_PROGRESS","PENDING_ACCEPTANCE"])};
+},
+/* 量化考核：按执行人汇总工作量 / 闭环率 */
+XgKpiRows=(wo)=>{
+  const map={};
+  (wo||[]).forEach((w)=>{
+    String(w.taskHandlers||"").split(",").filter(Boolean).forEach((uid)=>{
+      const u=(XM.userById||{})[uid],k=String(uid);
+      if(!map[k])map[k]={name:u?(u.name||u.account):("未知("+String(uid).slice(-4)+")"),org:u?(u.orgName||""):"",total:0,done:0,pend:0};
+      map[k].total++;
+      if(XgDone(w))map[k].done++;
+      if(["PENDING","IN_PROGRESS","PENDING_ACCEPTANCE"].indexOf(String(w.status||"").toUpperCase())>=0)map[k].pend++;
+    });
+  });
+  return Object.keys(map).map((k)=>map[k]).sort((a,b)=>b.total-a.total||b.done-a.done);
+},
+/* 顶部概览数字块 */
+Xgnums=(items)=>"<div style='display:flex;gap:6px;margin-bottom:7px' data-v-14ae79c9>"+items.map((i)=>
+  "<div style='flex:1;min-width:0;background:rgba(30,58,138,.28);border:1px solid rgba(148,163,184,.25);border-radius:6px;padding:5px 4px;text-align:center' data-v-14ae79c9>"+
+  "<div style='font-size:15px;font-weight:700;color:"+i.c+"' data-v-14ae79c9>"+Xes(i.v)+"</div>"+
+  "<div style='font-size:10.5px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' data-v-14ae79c9>"+Xes(i.t)+"</div></div>").join("")+"</div>",
+/* ⑨ 机械状态三态派生 */
+XgDevState=(d)=>{
+  const pid=String(d.pipelineId||"")||String((XM.d2p||{})[d.id]||"");
+  if(pid&&(XG.wo||[]).some((w)=>String(w.pipelineIds||"").indexOf(pid)>=0&&String(w.status||"").toUpperCase()==="IN_PROGRESS"))return "作业中";
+  const st=String(d.status||"");
+  if(st==="0"||String(d.isEnabled)==="false"||/维护|maintenance/i.test(st))return "维护";
+  if(st==="2"||/离线|offline/i.test(st))return "维护";
+  return "待命";
+},
+XgDevType=(d)=>{const M={valve:"阀门",pump:"水泵",pressure:"压力传感器",flow:"流量计",temperature:"温度传感器",
+  level:"液位计",quality:"水质监测仪",meter:"水位计",hydrant:"消防栓",manhole:"检查井",tank:"储水罐",
+  filter:"过滤器",robot:"巡检机器人",Sonar:"检测仪",camera:"视频监控"};
+  const t=String(d.deviceType||"");
+  if(M[t])return M[t];
+  /* 后端类型带前缀/后缀（如 ROBOT_DEVICE、WATER_FLOW），精确未命中时做包含匹配 */
+  const k=t.toLowerCase(),keys=Object.keys(M);
+  for(let i=0;i<keys.length;i++){if(k.indexOf(keys[i].toLowerCase())>=0)return M[keys[i]]}
+  return t||"未分类"},
+/* ⑩ 工单类型中文（缩短列宽，避免英文类型撑开表格） */
+XgWoT=(t)=>{const M={REPAIR:"维修",INSPECTION:"巡检",DREDGE:"清淤",DETECT:"检测",SURVEY:"普查",BUILD:"新建",
+  ALARM:"告警",MANUAL:"人工",PATROL:"巡查",OTHER:"其他"};
+  const k=String(t||"").toUpperCase();return M[k]||String(t||"-")},
+/* ⑧ 人员关联任务数 */
+XgTasks=(uid)=>(XG.wo||[]).filter((w)=>String(w.taskHandlers||"").split(",").indexOf(String(uid))>=0).length,
+/* ⑫ 资料分类（后端无分类字段，按文件名关键字） */
+XgDocKind=(f)=>{
+  const n=String(f.name||"").toLowerCase();
+  if(/安全|safety|security/.test(n))return "安全";
+  if(/许可|permit|license|审批|授权/.test(n))return "许可";
+  if(/工艺|流程|process|flow|方案|scheme|工法/.test(n))return "工艺流程";
+  return "其他";
+},
+/* ⑥ 下载：实测 /dev/file/download?id= 返回 200 文件流 */
+XgFileUrl=(f)=>"/dev/file/download?id="+encodeURIComponent(f.id),
+XgDocsOf=(w)=>{
+  const ids=String(w.attachments||"")+","+String(w.handleAttachments||"")+","+String(w.acceptanceAttachments||"");
+  const set=ids.split(",").filter(Boolean);
+  if(!set.length)return [];
+  return (XG.file||[]).filter((f)=>set.indexOf(String(f.id))>=0);
+},
+/* ⑩ 工单使用的机械设备：优先按管线派生；管线无命中时按工单 id 确定性派生模拟设备（后端无工单-设备关联字段） */
+XgWoDevs=(w)=>{
+  const pids=String(w.pipelineIds||"").split(",").filter(Boolean);
+  const all=XM.dev||[];
+  if(pids.length){
+    const hit=all.filter((d)=>pids.indexOf(String(d.pipelineId||(XM.d2p||{})[d.id]||""))>=0);
+    if(hit.length)return {list:hit,sim:0};
+  }
+  if(!all.length)return {list:[],sim:1};
+  const seed=String(w.id||"").split("").reduce((a,c)=>a+c.charCodeAt(0),0);
+  const n=2+(seed%2),out=[];
+  for(let i=0;i<n;i++)out.push(all[(seed+i*3)%all.length]);
+  return {list:out,sim:1};
+},
+/* ---------- 数据加载（补第三阶段 XmLoad 未覆盖的 project / org / file） ---------- */
+XgLoad=async()=>{
+  if(XG.load)return;
+  XG.load=1;
+  try{
+    const R=await Promise.all([Xall("/biz/project/page",100),Xall("/biz/org/page",100),
+      Xall("/dev/file/page",500),Xall("/biz/workOrder/page",500),Xall("/biz/inspectionPlan/page",200)]);
+    XG.prj=R[0].rows||[];XG.org=R[1].rows||[];XG.file=R[2].rows||[];XG.wo=R[3].rows||[];XG.plan=R[4].rows||[];
+    /* 工单/计划/设备优先复用第三阶段已加载的数据，避免重复请求 */
+    if((!XG.wo.length)&&(XM.wo||[]).length)XG.wo=XM.wo;
+    if((!XG.plan.length)&&(XM.plan||[]).length)XG.plan=XM.plan;
+    XG.rec=XM.rec||[];
+    XG.prjById={};XG.prj.forEach((p)=>{XG.prjById[p.id]=p});
+    XG.fileById={};XG.file.forEach((f)=>{XG.fileById[f.id]=f});
+    /* 默认选中第一个项目，便于首屏展示简介/进度 */
+    if(!XG.sel&&XG.prj.length)XG.sel=String(XG.prj[0].id);
+    XG.ready=1;
+  }catch(e){console.error("[XgLoad]",e);XG.load=0;XG.err=String((e&&e.message)||e)}
+},
+XgReWo=async()=>{try{const r=await Xall("/biz/workOrder/page",500);XG.wo=r.rows||[];XM.wo=r.rows||[]}catch(e){}},
+/* ================= 左栏：项目组织 ================= */
+XgovLeft=()=>{
+  const P=XgProjs();
+  let s="";
+  /* ① 区域筛选已移除：中间地图区本身已有区域筛选，此处不再重复（保留 XG.city/XG.dist 状态便于后续联动） */
+  /* ② 检索条（与项目列表合并进同一面板，样式对齐站内「工单列表」：控件行 + 表格行） */
+  const selcss="height:26px;font-size:12px;color:#fff;background:#0f172ae6;border:1px solid rgba(148,163,184,.4);border-radius:4px";
+  const search="<div style='display:flex;flex-wrap:wrap;gap:6px;padding:6px 8px;align-items:center' data-v-14ae79c9>"+
+    "<input data-xg='gkey' value='"+Xes(XG.key)+"' placeholder='项目名称/编号' style='flex:1;min-width:110px;"+selcss+";padding:0 6px' data-v-14ae79c9>"+
+    "<select data-xg='gftype' style='"+selcss+"' data-v-14ae79c9>"+
+      "<option value='__ALL__'>全部类型</option>"+XGTYPE.map((t)=>"<option value='"+t[0]+"'"+(XG.ftype===t[0]?" selected":"")+">"+t[1]+"</option>").join("")+"</select>"+
+    "<select data-xg='gfstate' style='"+selcss+"' data-v-14ae79c9>"+
+      [{v:"__ALL__",t:"全部状态"},{v:"进行中",t:"进行中"},{v:"已完工",t:"已完工"},{v:"未开始",t:"未开始"}].map((o)=>"<option value='"+o.v+"'"+(XG.fstate===o.v?" selected":"")+">"+o.t+"</option>").join("")+"</select>"+
+    "<select data-xg='gftime' style='"+selcss+"' data-v-14ae79c9>"+
+      [{v:"__ALL__",t:"全部时间"},{v:"2025",t:"2025年"},{v:"2026",t:"2026年"}].map((o)=>"<option value='"+o.v+"'"+(XG.ftime===o.v?" selected":"")+">"+o.t+"</option>").join("")+"</select>"+
+    Xgbtn("查询","gsearch","primary")+Xgbtn("重置","greset","")+"</div>";
+  /* ② 项目列表：表格样式（列头 + 行），行内已去掉进度条；点击名称弹简介，点 ▸ 展开计划/标段 */
+  let list=P.filter((p)=>{
+    const kw=XG.key.trim();
+    if(kw&&(String(p.projectName||"")+String(p.projectCode||"")).indexOf(kw)<0)return false;
+    if(XG.ftype!=="__ALL__"&&XgTypeOf(p)!==XG.ftype)return false;
+    if(XG.fstate!=="__ALL__"&&XgStateOf(p)!==XG.fstate)return false;
+    if(XG.ftime!=="__ALL__"&&String(p.createTime||"").indexOf(XG.ftime)<0)return false;
+    return true;
+  });
+  const rows=list.map((p)=>{
+    const sel=String(XG.sel)===String(p.id),kids=XgPlans(p);
+    let cell="<div style='display:flex;align-items:center;gap:5px;min-width:0' data-v-14ae79c9>"+
+      "<span data-xg='gexp' data-xv='"+Xes(p.id)+"' style='color:#93c5fd;font-weight:700;width:11px;flex:none;cursor:pointer' data-v-14ae79c9>"+(XG.exp[p.id]?"▾":"▸")+"</span>"+
+      "<span data-xg='gsel' data-xv='"+Xes(p.id)+"' title='"+Xes(p.projectName||p.projectCode)+"' style='flex:1;min-width:0;font-size:12.5px;color:"+(sel?"#fbbf24":"#e2e8f0")+";cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' data-v-14ae79c9>"+Xes(p.projectName||p.projectCode)+"</span></div>";
+    if(XG.exp[p.id]){
+      cell+="<div style='margin:3px 0 1px 16px;padding-left:7px;border-left:1px dashed rgba(148,163,184,.4)' data-v-14ae79c9>"+
+        (kids.length?kids.map((k)=>"<div style='font-size:11.5px;color:#cbd5e1;padding:1px 0;display:flex;gap:6px;align-items:center' data-v-14ae79c9>· "+
+          "<span style='flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' data-v-14ae79c9>"+Xes(k.planName||"计划")+"</span>"+
+          "<span style='color:"+(String(k.status)==="已完成"?"#4ade80":(String(k.status)==="进行中"?"#fbbf24":"#64748b"))+";flex:none' data-v-14ae79c9>"+Xes(String(k.status||""))+"</span></div>").join("")
+        :"<div style='font-size:11px;color:#64748b' data-v-14ae79c9>· 该项目暂无下级标段/计划</div>")+"</div>";
+    }
+    const st=XgStateOf(p);
+    return [cell,Xes(XgTypeName(XgTypeOf(p))),
+      "<span style='color:"+(st==="已完工"?"#4ade80":(st==="进行中"?"#fbbf24":"#94a3b8"))+"' data-v-14ae79c9>"+st+"</span>",
+      "<span style='color:#64748b' data-v-14ae79c9>"+Xes(Xgdt(p.createTime))+"</span>"];
+  });
+  s+=Xpan("项目列表（"+list.length+"）","overview-panel",search+Xgtbl(["项目","类型","状态","时间"],rows,"无匹配项目"));
+  /* ⑤ 选中项目：计划 / 工单 / 量化考核 统计（④简介已改为点击项目名弹出的弹窗） */
+  const cur=XG.prjById[XG.sel];
+  if(cur){
+    const prog=XgProgOf(cur),wo=XgWoOf(cur),plans=XgPlans(cur);
+    const demoN=plans.filter((k)=>k.demo).length;
+    /* ⑤ 计划表 + 发布工单（计划=真实关联+演示数据） */
+    s+=Xpan("项目进度与计划表","overview-panel",
+      "<div style='padding:4px 8px 8px' data-v-14ae79c9>"+
+      "<div style='display:flex;gap:8px;margin-bottom:6px' data-v-14ae79c9>"+Xgbtn("导出量化考核","gkpi",cur.id)+"</div>"+
+      Xgtbl(["类型","名称","周期","状态","开始","结束"],
+        plans.map((k)=>[Xes(k.planType||"计划"),Xes(k.planName||"-"),Xes(k.cycle||"-"),
+          "<span style='color:"+(String(k.status)==="已完成"?"#4ade80":(String(k.status)==="进行中"?"#fbbf24":"#94a3b8"))+"' data-v-14ae79c9>"+Xes(String(k.status||"-"))+"</span>",
+          Xes(Xgdt(k.startTime)),Xes(Xgdt(k.endTime))]),
+        "该项目暂无关联计划")+"</div>"+
+      "<div style='padding:0 8px 8px;font-size:11.5px;color:#94a3b8' data-v-14ae79c9>工单完成情况："+
+      wo.length+" 条工单，已闭环 "+wo.filter(XgDone).length+" 条，整改率 "+(wo.length?Math.round(wo.filter(XgDone).length/wo.length*100):0)+"%"+
+      "；<span style='color:#64748b' data-v-14ae79c9>含 "+demoN+" 条演示计划（后端计划-项目关联待补）</span></div>");
+  }
+  /* ⑥ 项目资料库（浏览 + 下载） */
+  const fs=(XG.file||[]).filter((f)=>{
+    const kw=XG.key.trim();
+    if(!kw)return true;
+    return String(f.name||"").toLowerCase().indexOf(kw.toLowerCase())>=0;
+  }).slice(0,40);
+  s+=Xpan("项目资料库（"+(XG.file||[]).length+"）","overview-panel xfill",
+    Xgtbl(["文件名","分类","大小","操作"],fs.map((f)=>[
+      Xes(f.name||"-"),Xes(XgDocKind(f)),Xes(f.sizeInfo||"-"),
+      "<a href='"+XgFileUrl(f)+"' target='_blank' rel='noopener' style='color:#38bdf8;text-decoration:none' data-v-14ae79c9>下载</a>"]),
+      "暂无资料（dev/file 为空）"));
+  return s;
+},
+/* ================= 右栏：现场资源 ================= */
+XgovRight=()=>{
+  let s="";
+  /* ⑧ 班组 / 人员 */
+  const us=(XM.user||[]).filter((u)=>{
+    const kw=XG.key.trim();
+    if(!kw)return true;
+    return (String(u.name||"")+String(u.account||"")+String(u.orgName||"")).indexOf(kw)>=0;
+  });
+  s+=Xpan("班组 / 人员（"+us.length+"）","overview-panel",
+    Xgtbl([["编号","14%"],["姓名","15%"],["机构/班组","27%"],["岗位","16%"],["状态","14%"],["任务数","14%"]],us.map((u)=>{
+      const on=String(u.userStatus)==="ENABLE";
+      return [Xes(u.empNo||u.account||String(u.id).slice(-6)),Xes(u.name||u.account||"-"),
+        Xes(u.orgName||"-"),Xes(u.positionName||"-"),
+        "<span style='color:"+(on?"#4ade80":"#f87171")+"' data-v-14ae79c9>"+(on?"在职":"停用")+"</span>",
+        /* ⑧ 点击任务数 → 弹出该人员的任务（工单）列表 */
+        "<span data-xg='gtasks' data-xv='"+Xes(u.id)+"' title='查看该人员任务列表' "+
+          "style='color:#93c5fd;font-weight:700;cursor:pointer;border-bottom:1px dotted #93c5fd' data-v-14ae79c9>"+XgTasks(u.id)+"</span>"]}),"暂无人员数据"));
+  /* ⑨ 机械 / 设备 + ⑪ 实时监控入口 */
+  const ds=(XM.dev||[]).filter((d)=>{
+    if(XG.devF!=="__ALL__"&&XgDevState(d)!==XG.devF)return false;
+    const kw=XG.key.trim();
+    if(!kw)return true;
+    return (String(d.deviceName||"")+String(d.deviceCode||"")+String(d.location||"")).indexOf(kw)>=0;
+  });
+  s+=Xpan("机械 / 设备（"+ds.length+"）","overview-panel","<div style='padding:0 8px 6px' data-v-14ae79c9>"+
+    "<select data-xg='gdevf' style='height:26px;font-size:12px;color:#fff;background:#0f172ae6;border:1px solid rgba(148,163,184,.4);border-radius:4px' data-v-14ae79c9>"+
+    [{v:"__ALL__",t:"全部状态"},{v:"作业中",t:"作业中"},{v:"待命",t:"待命"},{v:"维护",t:"维护"}].map((o)=>"<option value='"+o.v+"'"+(XG.devF===o.v?" selected":"")+">"+o.t+"</option>").join("")+"</select></div>"+
+    Xgtbl([["名称","26%"],["类型","18%"],["编号","18%"],["状态","13%"],["操作","25%"]],ds.map((d)=>{
+      const st=XgDevState(d);
+      /* ⑪ 有摄像头的设备：巡检类（机器人/QV/声呐）+ robot/Sonar 类型 + 配置了 IP 的设备 */
+      const hasCam=(typeof Xdtype==="function"&&Xdtype(d)==="patrol")||String(d.ipAddress||"").length>0||
+        ["robot","Sonar"].indexOf(String(d.deviceType))>=0;
+      return [Xes(d.deviceName||"-"),Xes(XgDevType(d)),Xes(String(d.deviceCode||"").slice(-8)||"-"),
+        "<span style='color:"+(st==="作业中"?"#fbbf24":(st==="维护"?"#f87171":"#4ade80"))+"' data-v-14ae79c9>"+st+"</span>",
+        (hasCam?Xgbtn("监控","glive",d.id):"")+Xgbtn("详情","gdevinfo",d.id)];
+    }),"暂无设备数据"));
+  /* ⑩ 工单提报 / 验收 */
+  const ws=(XG.wo||[]).filter((w)=>{
+    if(XG.woF!=="__ALL__"&&String(w.status)!==XG.woF)return false;
+    const kw=XG.key.trim();
+    if(!kw)return true;
+    return (String(w.workOrderCode||"")+String(w.description||"")+String(w.address||"")).indexOf(kw)>=0;
+  }).sort((a,b)=>String(b.createTime||"").localeCompare(String(a.createTime||"")));
+  s+=Xpan("工单列表（"+ws.length+"）","overview-panel","<div style='padding:0 8px 6px' data-v-14ae79c9>"+
+    "<select data-xg='gwof' style='height:26px;font-size:12px;color:#fff;background:#0f172ae6;border:1px solid rgba(148,163,184,.4);border-radius:4px' data-v-14ae79c9>"+
+    [{v:"__ALL__",t:"全部状态"},{v:"PENDING",t:"待分配"},{v:"IN_PROGRESS",t:"处理中"},{v:"PENDING_ACCEPTANCE",t:"待验收"},{v:"COMPLETED",t:"已完成"},{v:"CANCELLED",t:"已取消"}].map((o)=>"<option value='"+o.v+"'"+(XG.woF===o.v?" selected":"")+">"+o.t+"</option>").join("")+"</select></div>"+
+    Xgtbl([["工单号","23%"],["类型","14%"],["执行人","21%"],["状态","17%"],["操作","25%"]],ws.slice(0,60).map((w)=>{
+      const st=String(w.status||"").toUpperCase(),cn=XwoSt(w)[0];
+      return [Xes(w.workOrderCode||String(w.id).slice(-8)),Xes(XgWoT(w.workOrderType)),Xes(w.taskHandlersName||"-"),
+        "<span style='color:"+(st==="COMPLETED"?"#4ade80":(st==="PENDING_ACCEPTANCE"?"#fbbf24":"#93c5fd"))+"' data-v-14ae79c9>"+Xes(cn)+"</span>",
+        Xgbtn("详情","gwoinfo",w.id)+
+        (st==="PENDING_ACCEPTANCE"?Xgbtn("验收","gwoacc",w.id):"")];
+    }),"暂无工单"));
+  return s;
+},
+/* ================= ⑩⑫⑬ 工单详情弹窗：设备 / 资料 / AI 入口 ================= */
+XgovDetail=(id)=>{
+  const w=(XG.wo||[]).filter((x)=>String(x.id)===String(id))[0];
+  if(!w)return;
+  let box=document.getElementById("xgov");
+  if(!box){
+    box=document.createElement("div");
+    box.id="xgov";
+    box.setAttribute("data-v-14ae79c9","");
+    box.style.cssText="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,860px);max-height:86vh;z-index:9999;background:#0f172af7;"+
+      "border:1px solid rgba(148,163,184,.5);border-radius:10px;box-shadow:0 14px 48px rgba(0,0,0,.66);display:flex;flex-direction:column;overflow:hidden";
+    document.body.appendChild(box);
+  }
+  const dv=XgWoDevs(w),devs=dv.list,docs=XgDocsOf(w);
+  const filt=(k)=>docs.filter((f)=>XgDocKind(f)===k);
+  const sec=(t,arr)=>"<div style='margin-top:8px' data-v-14ae79c9><div style='font-size:12px;color:#93c5fd;margin-bottom:3px' data-v-14ae79c9>"+Xes(t)+"（"+arr.length+"）</div>"+
+    (arr.length?"<div style='font-size:12px;color:#cbd5e1;line-height:1.8' data-v-14ae79c9>"+arr.map((f)=>
+      "<div data-v-14ae79c9>· "+Xes(f.name)+" <span style='color:#64748b' data-v-14ae79c9>"+Xes(f.sizeInfo||"")+"</span> "+
+      "<a href='"+XgFileUrl(f)+"' target='_blank' rel='noopener' style='color:#38bdf8;text-decoration:none' data-v-14ae79c9>下载</a></div>").join("")+"</div>"
+      :"<div style='font-size:11.5px;color:#64748b' data-v-14ae79c9>暂无（后端资料未带该分类）</div>")+"</div>";
+  box.innerHTML=XM_ST+
+    "<div style='display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.3)' data-v-14ae79c9>"+
+    "<b style='font-size:14px;color:#93c5fd' data-v-14ae79c9>工单详情 · "+Xes(w.workOrderCode||"")+"</b>"+
+    Xgbtn("关闭","gclose","")+"</div>"+
+    "<div style='flex:1 1 auto;min-height:0;padding:10px 14px;overflow:auto' data-v-14ae79c9>"+
+      "<div style='font-size:12.5px;color:#cbd5e1;line-height:1.7' data-v-14ae79c9>"+
+        "<div data-v-14ae79c9>描述："+Xes(w.description||"-")+"</div>"+
+        "<div data-v-14ae79c9>位置："+Xes(w.location||w.address||"-")+"</div>"+
+        "<div data-v-14ae79c9>状态：<b data-v-14ae79c9>"+Xes(w.status||"-")+"</b>　类型："+Xes(w.workOrderType||"-")+"　等级："+Xes(w.issueLevel||"-")+"</div>"+
+        "<div data-v-14ae79c9>执行人："+Xes(w.taskHandlersName||"-")+"　验收人："+Xes(w.acceptorNames||w.acceptor||"-")+"</div>"+
+      "</div>"+
+      /* ⑩ 本工单使用的机械设备 */
+      "<div style='margin-top:10px' data-v-14ae79c9><div style='font-size:12px;color:#93c5fd;margin-bottom:3px' data-v-14ae79c9>本工单使用的机械设备（"+devs.length+"）"+
+        (dv.sim?"<span style='color:#64748b;font-size:11px' data-v-14ae79c9> · 模拟关联</span>":"")+"</div>"+
+      Xgtbl([["名称","34%"],["类型","22%"],["编号","26%"],["状态","18%"]],devs.map((d)=>[Xes(d.deviceName||"-"),Xes(XgDevType(d)),
+        Xes(String(d.deviceCode||"").slice(-10)||"-"),Xes(XgDevState(d))]),
+        "该工单管线未关联到设备（后端无工单-设备关联字段，按管线派生）")+
+      (dv.sim?"<div style='font-size:11px;color:#64748b;margin-top:3px' data-v-14ae79c9>后端暂无工单-设备关联字段，以上为按工单号确定性派生的模拟设备（刷新不变）</div>":"")+"</div>"+
+      /* ⑫ 工单资料：安全 / 许可 / 工艺流程 */
+      sec("安全资料",filt("安全"))+sec("许可资料",filt("许可"))+sec("工艺流程资料",filt("工艺流程"))+sec("其他附件",filt("其他"))+
+    "</div>";
+  XG.detail=String(id);
+},
+XgovClose=()=>{const b=document.getElementById("xgov");if(b)b.remove();XG.detail="";
+  const i=document.getElementById("xgintro");if(i)i.remove();XG.intro=""},
+/* ================= ④ 项目简介弹窗（点击项目列表中的项目名后弹出） ================= */
+XgovIntro=(id)=>{
+  const p=XG.prjById[id];
+  if(!p){const b=document.getElementById("xgintro");if(b)b.remove();XG.intro="";return}
+  let box=document.getElementById("xgintro");
+  if(!box){
+    box=document.createElement("div");
+    box.id="xgintro";
+    box.setAttribute("data-v-14ae79c9","");
+    box.style.cssText="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,720px);max-height:82vh;z-index:9998;"+
+      "background:#0f172af7;border:1px solid rgba(148,163,184,.5);border-radius:10px;box-shadow:0 14px 48px rgba(0,0,0,.66);"+
+      "display:flex;flex-direction:column;overflow:hidden";
+    document.body.appendChild(box);
+  }
+  const prog=XgProgOf(p),wo=XgWoOf(p),kids=XgPlans(p);
+  box.innerHTML=XM_ST+
+    "<div style='display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.3)' data-v-14ae79c9>"+
+      "<b style='font-size:14px;color:#93c5fd' data-v-14ae79c9>项目简介 · "+Xes(p.projectName||p.projectCode||"")+"</b>"+
+      Xgbtn("关闭","giclose","")+"</div>"+
+    "<div style='flex:1 1 auto;min-height:0;padding:10px 14px;overflow:auto' data-v-14ae79c9>"+
+      "<div style='font-size:12.5px;color:#cbd5e1;line-height:1.75' data-v-14ae79c9>"+
+        Xes(p.projectIntroduction||"（该项目尚未填写简介）")+"</div>"+
+      "<div style='display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:11.5px;color:#94a3b8' data-v-14ae79c9>"+
+        "<span data-v-14ae79c9>编号："+Xes(p.projectCode||"-")+"</span>"+
+        "<span data-v-14ae79c9>类型："+Xes(XgTypeName(XgTypeOf(p)))+"</span>"+
+        "<span data-v-14ae79c9>状态："+Xes(XgStateOf(p))+"</span>"+
+        "<span data-v-14ae79c9>立项："+Xes(Xgdt(p.createTime))+"</span>"+
+        "<span data-v-14ae79c9>下级标段/计划："+kids.length+" 项</span>"+
+        "<span data-v-14ae79c9>关联工单："+wo.length+" 条（已闭环 "+wo.filter(XgDone).length+" 条）</span></div>"+
+      "<div style='display:flex;align-items:center;gap:8px;margin-top:10px' data-v-14ae79c9>"+
+        "<span style='font-size:11.5px;color:#94a3b8' data-v-14ae79c9>项目进度</span>"+Xgbar(prog)+
+        "<span style='font-size:12px;color:#93c5fd' data-v-14ae79c9>"+prog+"%</span></div>"+
+    "</div>";
+  XG.intro=String(id);
+},
+/* ================= ⑨ 机械设备详情弹窗（档案 / 所属管线 / 关联工单 / 实时监控） ================= */
+Xgv=(v)=>{const s=String(v==null?"":v);return (s===""||s==="null"||s==="undefined")?"-":s},
+XgDevCat=(c)=>{const M={OUT_DEVICE:"外业设备",IN_DEVICE:"内业设备",SENSOR:"传感设备",CAMERA:"视频设备"};
+  const k=String(c||"").toUpperCase();return M[k]||Xgv(c)},
+XgovDev=(id)=>{
+  const d=(XM.devById||{})[id]||(XM.dev||[]).filter((x)=>String(x.id)===String(id))[0];
+  if(!d){const b=document.getElementById("xgdev");if(b)b.remove();XG.dev="";return}
+  let box=document.getElementById("xgdev");
+  if(!box){
+    box=document.createElement("div");
+    box.id="xgdev";
+    box.setAttribute("data-v-14ae79c9","");
+    box.style.cssText="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,760px);max-height:84vh;z-index:9997;"+
+      "background:#0f172af7;border:1px solid rgba(148,163,184,.5);border-radius:10px;box-shadow:0 14px 48px rgba(0,0,0,.66);"+
+      "display:flex;flex-direction:column;overflow:hidden";
+    document.body.appendChild(box);
+  }
+  const st=XgDevState(d);
+  const stc=st==="作业中"?"#fbbf24":(st==="维护"?"#f87171":"#4ade80");
+  const pid=Xgv(d.pipelineId)==="-"?"":String(d.pipelineId);
+  const pipe=pid?((XM.pipeById||{})[pid]||null):null;
+  const pnm=Xgv(d.pipelineName)==="-"?(pipe?Xgv(pipe.pipelineName):"-"):Xgv(d.pipelineName);
+  const wos=pid?(XG.wo||[]).filter((w)=>String(w.pipelineIds||"").indexOf(pid)>=0):[];
+  const hasCam=(typeof Xdtype==="function"&&Xdtype(d)==="patrol")||Xgv(d.ipAddress)!=="-"||
+    ["robot","Sonar"].indexOf(String(d.deviceType))>=0;
+  const sect=(t,extra,body)=>"<div style='margin-top:8px' data-v-14ae79c9>"+
+    "<div style='font-size:12px;color:#93c5fd;margin-bottom:3px' data-v-14ae79c9>"+Xes(t)+
+    (extra?"<span style='color:#64748b;font-size:11px' data-v-14ae79c9> "+Xes(extra)+"</span>":"")+"</div>"+body+"</div>";
+  const kv=(rows)=>Xgtbl([["项目","26%"],["内容","74%"]],rows,"无数据");
+  const lon=Xgv(d.positionX),lat=Xgv(d.positionY);
+  box.innerHTML=XM_ST+
+    "<div style='display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.3)' data-v-14ae79c9>"+
+      "<b style='font-size:14px;color:#93c5fd' data-v-14ae79c9>设备详情 · "+Xes(Xgv(d.deviceName))+"</b>"+
+      Xgbtn("关闭","gdevclose","")+"</div>"+
+    "<div style='flex:1 1 auto;min-height:0;padding:10px 14px;overflow:auto' data-v-14ae79c9>"+
+      /* 状态概览 */
+      "<div style='display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12px;color:#cbd5e1' data-v-14ae79c9>"+
+        "<span data-v-14ae79c9>运行状态：<b style='color:"+stc+"' data-v-14ae79c9>"+st+"</b></span>"+
+        "<span data-v-14ae79c9>启用："+Xes(String(d.isEnabled)==="true"?"是":"否")+"</span>"+
+        "<span data-v-14ae79c9>最后心跳："+Xes(Xgv(d.lastHeartbeat))+"</span>"+
+        "<span data-v-14ae79c9>心跳/超时："+Xes(Xgv(d.heartbeatInterval))+"s / "+Xes(Xgv(d.timeoutThreshold))+"s</span></div>"+
+      /* 基本信息 */
+      sect("设备档案","",kv([
+        ["设备编号",Xgv(d.deviceCode)],["设备类型",XgDevType(d)],["设备类别",XgDevCat(d.deviceCategory)],
+        ["厂商",Xgv(d.manufacturer)],["型号",Xgv(d.model)],["固件版本",Xgv(d.version)],
+        ["通信协议",Xgv(d.protocolType)],["IP 地址",Xgv(d.ipAddress)],["端口",Xgv(d.port)],
+        ["安装位置",Xgv(d.location)],
+        ["经纬度",(lon==="-"||lat==="-")?"-":(lon+" , "+lat)],
+        ["建档时间",Xgv(d.createTime)],["备注",Xgv(d.remark)]]))+
+      /* 所属管线 */
+      sect("所属管线",pnm==="-"?"（未绑定）":"",pipe?kv([
+        ["管线名称",Xgv(pipe.pipelineName)],["管线编码",Xgv(pipe.pipelineCode)],
+        ["管线类型",Xgv(pipe.pipelineTypeName||pipe.pipelineType)],["管径",Xgv(pipe.diameter)+(Xgv(pipe.diameter)==="-"?"":" mm")],
+        ["材质",Xgv(pipe.material)],["长度",Xgv(pipe.length)+(Xgv(pipe.length)==="-"?"":" m")],
+        ["埋深",Xgv(pipe.depth)],["所在道路",Xgv(pipe.roadName)],["管线状态",Xgv(pipe.status)]])
+        :"<div style='font-size:11.5px;color:#64748b' data-v-14ae79c9>该设备未绑定管线（后端 pipelineId 为空）</div>")+
+      /* 关联工单 */
+      sect("关联工单","（"+wos.length+" 条）",wos.length?
+        Xgtbl([["工单号","26%"],["状态","20%"],["类型","18%"],["描述","36%"]],wos.slice(0,10).map((w)=>[
+          Xes(Xgv(w.workOrderCode)),Xes(XwoSt(w)[0]),Xes(XgWoT(w.workOrderType)),
+          "<span style='color:#94a3b8' data-v-14ae79c9>"+Xes(Xgv(w.description))+"</span>"]),"无")
+        :"<div style='font-size:11.5px;color:#64748b' data-v-14ae79c9>该设备未绑定管线，暂无关联工单（后端无设备-工单关联字段）</div>")+
+    "</div>"+
+    "<div style='padding:9px 14px;border-top:1px solid rgba(148,163,184,.25);display:flex;gap:8px;justify-content:flex-end' data-v-14ae79c9>"+
+      (hasCam?Xgbtn("实时监控","glive",d.id,"primary"):"")+
+      Xgbtn("关闭","gdevclose","")+"</div>";
+  XG.dev=String(id);
+},
+/* ================= ⑧ 人员任务列表弹窗（点击人员“任务数”） ================= */
+XgovTasks=(uid)=>{
+  const u=(XM.userById||{})[uid]||{};
+  const ws=(XG.wo||[]).filter((w)=>String(w.taskHandlers||"").split(",").indexOf(String(uid))>=0)
+    .sort((a,b)=>String(b.createTime||"").localeCompare(String(a.createTime||"")));
+  let box=document.getElementById("xgtasks");
+  if(!box){
+    box=document.createElement("div");
+    box.id="xgtasks";
+    box.setAttribute("data-v-14ae79c9","");
+    box.style.cssText="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,820px);max-height:82vh;z-index:9996;"+
+      "background:#0f172af7;border:1px solid rgba(148,163,184,.5);border-radius:10px;box-shadow:0 14px 48px rgba(0,0,0,.66);"+
+      "display:flex;flex-direction:column;overflow:hidden";
+    document.body.appendChild(box);
+  }
+  const done=ws.filter(XgDone).length;
+  box.innerHTML=XM_ST+
+    "<div style='display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.3)' data-v-14ae79c9>"+
+      "<b style='font-size:14px;color:#93c5fd' data-v-14ae79c9>任务列表 · "+Xes(u.name||u.account||"未知人员")+"（"+ws.length+"）</b>"+
+      Xgbtn("关闭","gtaskclose","")+"</div>"+
+    "<div style='flex:1 1 auto;min-height:0;padding:10px 14px;overflow:auto' data-v-14ae79c9>"+
+      "<div style='font-size:11.5px;color:#94a3b8;margin-bottom:6px' data-v-14ae79c9>"+
+        Xes(u.orgName||"-")+" ｜ "+Xes(u.positionName||"-")+" ｜ 共 "+ws.length+" 条任务，已闭环 "+done+" 条，闭环率 "+XgPct(done,ws.length)+"%</div>"+
+      Xgtbl([["工单号","24%"],["类型","14%"],["状态","16%"],["位置/描述","30%"],["下发时间","16%"]],
+        ws.slice(0,100).map((w)=>[Xes(Xgv(w.workOrderCode)),Xes(XgWoT(w.workOrderType)),
+          "<span style='color:"+(XgDone(w)?"#4ade80":(String(w.status).toUpperCase()==="PENDING_ACCEPTANCE"?"#fbbf24":"#93c5fd"))+"' data-v-14ae79c9>"+Xes(XwoSt(w)[0])+"</span>",
+          "<span style='color:#94a3b8' data-v-14ae79c9>"+Xes(Xgv(w.location||w.address||w.description))+"</span>",
+          "<span style='color:#64748b' data-v-14ae79c9>"+Xes(Xgdt(w.createTime))+"</span>"]),
+        "该人员暂无关联任务")+
+    "</div>"+
+    "<div style='padding:9px 14px;border-top:1px solid rgba(148,163,184,.25);display:flex;justify-content:flex-end' data-v-14ae79c9>"+
+      Xgbtn("关闭","gtaskclose","")+"</div>";
+  XG.tasks=String(uid);
+},
+/* ================= ⑪ 实时监控弹窗（居中；视频区 + 实时指标 + AI 判读预留入口） ================= */
+XgovLive=(id)=>{
+  const d=(XM.devById||{})[id]||(XM.dev||[]).filter((x)=>String(x.id)===String(id))[0];
+  if(!d){const b=document.getElementById("xglive");if(b)b.remove();XG.live="";return}
+  let box=document.getElementById("xglive");
+  if(!box){
+    box=document.createElement("div");
+    box.id="xglive";
+    box.setAttribute("data-v-14ae79c9","");
+    box.style.cssText="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,860px);max-height:86vh;z-index:9998;"+
+      "background:#0f172af7;border:1px solid rgba(148,163,184,.5);border-radius:10px;box-shadow:0 14px 48px rgba(0,0,0,.66);"+
+      "display:flex;flex-direction:column;overflow:hidden";
+    document.body.appendChild(box);
+  }
+  const st=XgDevState(d);
+  const stc=st==="作业中"?"#fbbf24":(st==="维护"?"#f87171":"#4ade80");
+  box.innerHTML=XM_ST+
+    "<div style='display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.3)' data-v-14ae79c9>"+
+      "<b style='font-size:14px;color:#93c5fd' data-v-14ae79c9>实时监控 · "+Xes(Xgv(d.deviceName))+"</b>"+
+      Xgbtn("关闭","gliveclose","")+"</div>"+
+    "<div style='flex:1 1 auto;min-height:0;padding:10px 14px;overflow:auto' data-v-14ae79c9>"+
+      /* 视频区（居中）；后端暂无视频流地址，占位并说明接入方式 */
+      "<div style='aspect-ratio:16/9;background:#000;border:1px solid rgba(148,163,184,.25);border-radius:8px;"+
+        "display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px' data-v-14ae79c9>"+
+        "<div style='font-size:13px;color:#94a3b8' data-v-14ae79c9>视频画面</div>"+
+        "<div style='font-size:11.5px;color:#64748b' data-v-14ae79c9>"+
+          ((typeof Xdtype==="function"&&Xdtype(d)==="patrol")?"该设备为巡检类（机器人 / QV / 声呐），画面由巡检系统承载，待接入视频流"
+                              :"视频流待接入（后端设备未返回拉流地址，可在设备档案中补充 IP / 推流地址后自动播放）")+"</div>"+
+        "<div style='font-size:11px;color:#475569' data-v-14ae79c9>"+Xes(Xgv(d.location))+"</div>"+
+      "</div>"+
+      "<div style='display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:11.5px;color:#94a3b8' data-v-14ae79c9>"+
+        "<span data-v-14ae79c9>运行状态：<b style='color:"+stc+"' data-v-14ae79c9>"+st+"</b></span>"+
+        "<span data-v-14ae79c9>类型："+Xes(XgDevType(d))+"</span>"+
+        "<span data-v-14ae79c9>最后心跳："+Xes(Xgv(d.lastHeartbeat))+"</span></div>"+
+      /* 实时指标（异步填充） */
+      "<div id='xgliveBody' style='margin-top:8px;font-size:12px;color:#94a3b8' data-v-14ae79c9>实时指标读取中…</div>"+
+    "</div>"+
+    "<div style='padding:9px 14px;border-top:1px solid rgba(148,163,184,.25);display:flex;gap:8px;justify-content:flex-end' data-v-14ae79c9>"+
+      Xgbtn("AI 判读（预留）","gaiv",d.id,"primary")+
+      Xgbtn("刷新指标","gliverefresh",d.id)+
+      Xgbtn("关闭","gliveclose","")+"</div>";
+  XG.live=String(id);
+  XgovLiveData(d);
+},
+/* 实时指标：只拉“当天”，空则回退近 7 天（避免 XmProbe 逐月探测导致的长时间加载） */
+XgovLiveData=async(d)=>{
+  const bd=document.getElementById("xgliveBody");
+  if(!bd)return;
+  if(typeof XmHist!=="function"){bd.innerHTML="实时指标能力未就绪（采集数据接口未加载）";return}
+  try{
+    const today=Xday(new Date());
+    let rows=await XmHist([d.id],today+" 00:00:00",today+" 23:59:59");
+    let span="今日";
+    if(!rows.length){
+      const t=new Date(Date.now()-6*864e5);
+      rows=await XmHist([d.id],Xday(t)+" 00:00:00",today+" 23:59:59");
+      span="近 7 日";
+    }
+    const MET=[["WATER_FLOW","水流量","m³/h"],["WATER_SPEED","流速","m/s"],
+               ["WATER_LEVEL","水位","mm"],["DEV_TEMP","温度","℃"]];
+    let s="<div style='display:flex;flex-wrap:wrap;gap:8px' data-v-14ae79c9>";
+    MET.forEach((m)=>{
+      const sub=rows.filter((r)=>r.dataType===m[0]);
+      const last=sub.length?sub[sub.length-1]:null;
+      s+="<div style='flex:1;min-width:120px;background:rgba(30,58,138,.28);border:1px solid rgba(148,163,184,.25);border-radius:6px;padding:6px 8px' data-v-14ae79c9>"+
+        "<div style='font-size:11px;color:#94a3b8' data-v-14ae79c9>"+Xes(m[1])+"</div>"+
+        "<div style='font-size:15px;font-weight:700;color:#93c5fd' data-v-14ae79c9>"+
+        (last?Xf(last.dataValue,2):"--")+"<span style='font-size:10.5px;font-weight:400;color:#64748b' data-v-14ae79c9> "+Xes(last?m[2]:"")+"</span></div></div>";
+    });
+    s+="</div>";
+    s+="<div style='font-size:11px;color:#64748b;margin-top:5px' data-v-14ae79c9>"+
+      (rows.length?("共 "+rows.length+" 条采集记录（"+span+"），最新 "+Xes(String((rows[rows.length-1]||{}).collectionTime||"").slice(5,16)))
+                  :"该设备暂无采集数据（"+span+"无记录）")+"</div>";
+    bd.innerHTML=s;
+  }catch(err){
+    bd.innerHTML="<div style='font-size:11.5px;color:#f87171' data-v-14ae79c9>实时指标读取失败："+Xes(String((err&&err.message)||err))+"</div>";
+  }
+},
+/* ================= 交互（data-xg 独立委托，与第三阶段 data-xa 互不干扰） ================= */
+Xgact=async(a,v,el,e)=>{
+  if(!a)return;
+  try{
+    if(a==="gcity"){XG.city=v;XG.dist="__ALL__";XG.sel="__ALL__";return XrenderGov()}
+    if(a==="gdist"){XG.dist=v;XG.sel="__ALL__";return XrenderGov()}
+    if(a==="gproj"){XG.sel=v;return XrenderGov()}
+    /* ④ 点击项目名：选中该项目并弹出「项目简介」 */
+    if(a==="gsel"){XG.sel=String(v);XG.intro=String(v);return XrenderGov()}
+    /* 查询按钮：读取关键字输入框并应用 */
+    if(a==="gsearch"){const inp=document.querySelector("[data-xg='gkey']");XG.key=(inp&&inp.value)||"";return XrenderGov()}
+    if(a==="giclose"){const b=document.getElementById("xgintro");if(b)b.remove();XG.intro="";return XrenderGov()}
+    if(a==="gexp"){XG.exp[v]=!XG.exp[v];return XrenderGov()}
+    if(a==="grtab"){XG.rtab=v;return XrenderGov()}
+    if(a==="gkey"){XG.key=(el&&el.value)||"";return XrenderGov()}
+    if(a==="gftype"){XG.ftype=v;return XrenderGov()}
+    if(a==="gfstate"){XG.fstate=v;return XrenderGov()}
+    if(a==="gftime"){XG.ftime=v;return XrenderGov()}
+    if(a==="gdevf"){XG.devF=v;return XrenderGov()}
+    if(a==="gwof"){XG.woF=v;return XrenderGov()}
+    if(a==="greset"){XG.key="";XG.ftype="__ALL__";XG.fstate="__ALL__";XG.ftime="__ALL__";XG.city="__ALL__";XG.dist="__ALL__";XG.sel="__ALL__";return XrenderGov()}
+    if(a==="gclose"){XgovClose();return}
+    /* ⑨ 机械设备详情 → 弹窗 */
+    if(a==="gdevinfo"){XG.dev=String(v);return XrenderGov()}
+    if(a==="gdevclose"){const b=document.getElementById("xgdev");if(b)b.remove();XG.dev="";return XrenderGov()}
+    /* ⑧ 人员任务列表弹窗 */
+    if(a==="gtasks"){XG.tasks=String(v);return XrenderGov()}
+    if(a==="gtaskclose"){const b=document.getElementById("xgtasks");if(b)b.remove();XG.tasks="";return XrenderGov()}
+    /* ⑪ 实时监控弹窗（居中，不再走第三阶段右上角小卡） */
+    if(a==="glive"){XG.live=String(v);return XrenderGov()}
+    if(a==="gliveclose"){const b=document.getElementById("xglive");if(b)b.remove();XG.live="";return XrenderGov()}
+    if(a==="gliverefresh"){
+      const d=(XM.devById||{})[v]||(XM.dev||[]).filter((x)=>String(x.id)===String(v))[0];
+      if(d){const bd=document.getElementById("xgliveBody");if(bd)bd.innerHTML="实时指标读取中…";XgovLiveData(d)}
+      return;
+    }
+    /* ⑬ 视频弹窗内 AI 判读：仅预留入口 */
+    if(a==="gaiv"){XG.toast="AI 判读为预留入口，本阶段不实现算法";return XrenderGov()}
+    if(a==="gwoinfo"){XgovDetail(v);return}
+    if(a==="gwosub"){
+      const w=(XG.wo||[]).filter((x)=>String(x.id)===String(v))[0];
+      if(!w)return;
+      const body=XwoBody(w,{status:"PENDING_ACCEPTANCE",handleResult:"执行人已完成现场处理，提交验收",
+        actualStartTime:w.actualStartTime||Xnow(),actualEndTime:Xnow()});
+      const r=await Xmpost("/biz/workOrder/edit",body);
+      XG.toast=(r&&r.code===200)?"已提报，等待管理人员验收":"提报失败："+String((r&&r.msg)||"");
+      await XgReWo();XgovClose();return XrenderGov();
+    }
+    if(a==="gwoacc"){
+      const w=(XG.wo||[]).filter((x)=>String(x.id)===String(v))[0];
+      if(!w)return;
+      const me=XM.me||{};
+      /* 后端职责分离：处理人不能验收自己处理的工单 */
+      if(String(w.taskHandlers||"").split(",").indexOf(String(me.id))>=0){
+        XG.toast="职责分离：处理人不能验收自己处理的工单（当前 "+String(me.name||"未登录")+"）";
+        XgovClose();return XrenderGov();
+      }
+      const body=XwoBody(w,{status:"COMPLETED",acceptanceResult:"PASS",acceptanceTime:Xnow(),
+        acceptanceOpinion:"验收通过，工单闭环",acceptor:String(me.name||""),acceptorNames:String(me.name||""),acceptorIds:String(me.id||"")});
+      const r=await Xmpost("/biz/workOrder/edit",body);
+      XG.toast=(r&&r.code===200)?"验收通过，工单已闭环":"验收失败："+String((r&&r.msg)||"");
+      await XgReWo();XgovClose();return XrenderGov();
+    }
+    if(a==="gplan2wo"){
+      const p=XG.prjById[v];if(!p)return;
+      const kids=XgKidsOf(p);
+      if(!kids.length){XG.toast="该项目暂无可用巡检计划（后端计划无 projectId 关联）";return XrenderGov()}
+      const plan=kids[0];
+      const no=await Xrq("/biz/workOrder/autoGenerateWorkOrderNo");
+      const body={
+        workOrderCode:(typeof no==="string"&&no)?no:("GD"+Date.now()),
+        workOrderType:"REPAIR",source:"INSPECTION_PLAN",priority:"P3",status:"IN_PROGRESS",
+        description:"管网治理 · "+String(p.projectName||"")+"："+String(plan.planName||""),
+        issueDesc:"由项目计划自动生成；周期："+String(plan.cycle||"")+"；说明："+String(plan.descText||""),
+        taskHandlers:String(plan.executorIds||"")||XwoPick(),
+        location:String(p.projectName||""),address:String(p.projectName||""),
+        pipelineIds:String(plan.routeIds||"").split(",")[0]||"",
+        pnInspectionRecordId:(XM.rec&&XM.rec[0]&&XM.rec[0].id)||"",
+        handleMeasure:"#XGPROJ:"+String(p.id)+"#"
+      };
+      const r=await Xmpost("/biz/workOrder/add",body);
+      XG.toast=(r&&r.code===200)?("已发布工单 "+body.workOrderCode):("发布失败："+String((r&&r.msg)||""));
+      await XgReWo();return XrenderGov();
+    }
+    if(a==="gkpi"){
+      /* ⑤ 量化考核导出（按执行人统计工单量/闭环率） */
+      const map={};
+      (XG.wo||[]).forEach((w)=>{
+        String(w.taskHandlers||"").split(",").filter(Boolean).forEach((uid)=>{
+          const u=(XM.userById||{})[uid],t=Xts(w.createTime||w.plannedStartTime);
+          const mk=t?(t.getFullYear()+"-"+("0"+(t.getMonth()+1)).slice(-2)):"未知";
+          const k=uid+"|"+mk;
+          if(!map[k])map[k]={name:u?(u.name||u.account):uid,org:u?(u.orgName||""):"",month:mk,total:0,done:0,pend:0};
+          map[k].total++;
+          if(XgDone(w))map[k].done++;
+          if(["PENDING","PENDING_ACCEPTANCE"].indexOf(String(w.status||"").toUpperCase())>=0)map[k].pend++;
+        });
+      });
+      const out=[["人员","机构","月份","工作量","已完成","在办","完成率"]];
+      Object.keys(map).forEach((k)=>{const r=map[k];
+        out.push([r.name,r.org,r.month,r.total,r.done,r.pend,(r.total?Math.round(r.done/r.total*100):0)+"%"])});
+      XmCsv(out,"量化考核表_"+Xday(new Date())+".csv");
+      return;
+    }
+  }catch(err){console.error("[Xgact]",err)}
+},
+XgHook=()=>{
+  if(XG.hook)return;
+  XG.hook=1;
+  document.addEventListener("click",(e)=>{
+    const el=(e.target&&e.target.closest)?e.target.closest("[data-xg]"):null;
+    if(!el)return;
+    const tg=String(el.tagName||"").toUpperCase();
+    if(tg==="SELECT"||tg==="INPUT"||tg==="TEXTAREA")return;
+    e.preventDefault();
+    e.stopPropagation();
+    Xgact(el.getAttribute("data-xg"),el.getAttribute("data-xv"),el,e);
+  },true);
+  document.addEventListener("change",(e)=>{
+    const el=(e.target&&e.target.closest)?e.target.closest("[data-xg]"):null;
+    if(!el)return;
+    Xgact(el.getAttribute("data-xg"),el.value,el,e);
+  },true);
+  /* 关键字输入：回车即检索 */
+  document.addEventListener("keydown",(e)=>{
+    const el=(e.target&&e.target.closest)?e.target.closest("[data-xg='gkey']"):null;
+    if(!el)return;
+    if(e.key==="Enter"){e.preventDefault();XG.key=el.value||"";XrenderGov()}
+  },true);
+},
+/* ================= 治理渲染入口 ================= */
+/* 治理模式布局修正（只作用于 gov-l/gov-r 容器，不影响监测模式）：
+ *   左栏面板多，原 .xinject 弹性列会把各面板压缩到低于内容高度 → 内容外溢视觉重叠；
+ *   故左栏各面板锁定自然高度(flex:0 0 auto)、容器整体滚动，资料库面板(xfill)保底 220px 撑住；
+ *   右栏面板拉伸填满整列(flex:1 1 auto)，消除下方大片空白。 */
+Xgstyle="<style id='xgovCss'>"+
+  "[data-x='gov-l'] .xinject{overflow-y:auto!important;scrollbar-width:thin}"+
+  "[data-x='gov-l'] .xinject>div.info-panel{flex:0 0 auto}"+
+  "[data-x='gov-l'] .xinject>div.info-panel.xfill{flex:0 0 auto;height:185px}"+
+  /* 右栏三区同屏（班组/人员 · 机械/设备 · 工单）：容器整体滚动，每区内容限高内滚，避免单区独占整列 */
+  "[data-x='gov-r'] .xinject{overflow-y:auto!important;scrollbar-width:thin}"+
+  "[data-x='gov-r'] .xinject>div.info-panel{flex:0 0 auto}"+
+  "[data-x='gov-r'] .xinject>div.info-panel>.panel-content{max-height:230px;overflow-y:auto;scrollbar-width:thin}"+
+  "[data-x='gov-l'] .xbtn.primary{background:rgba(59,130,246,.55);border-color:rgba(96,165,250,.65);color:#fff}"+
+  "[data-x='gov-l'] .xbtn.primary:hover{background:rgba(59,130,246,.8)}"+
+  ".xbtn.primary{background:rgba(59,130,246,.55)!important;border-color:rgba(96,165,250,.65)!important;color:#fff!important}"+
+  "</style>",
+XrenderGov=async()=>{
+  const tip=XG.toast;XG.toast="";
+  try{
+    Xsg.value=Xgstyle+XM_ST+(tip?"<div class='xtip' style='color:#fbbf24;border:1px solid rgba(234,179,8,.45)' data-v-14ae79c9>"+Xes(tip)+"</div>":"")+XgovLeft();
+    Xsh.value=Xgstyle+XM_ST+XgovRight();
+  }catch(e){
+    console.error("[XrenderGov]",e);
+    Xsg.value=XM_ST+Xerr("管网治理");
+    Xsh.value=XM_ST+Xerr("现场资源");
+  }
+  /* 弹窗若开着则同步重绘 */
+  if(XG.detail)XgovDetail(XG.detail);
+  if(XG.intro)XgovIntro(XG.intro);
+  if(XG.dev)XgovDev(XG.dev);
+  if(XG.tasks)XgovTasks(XG.tasks);
+  if(XG.live)XgovLive(XG.live);
+  Xflush();
+},
+
+XloadGov=async()=>{try{try{if(typeof Xlg==="function")Xlg("gov:start")}catch(e){}try{window.__xGov=()=>XG;window.__xGovR=()=>XrenderGov;window.__xGovAct=(a,v)=>Xgact(a,v,null,null)}catch(e){}XgHook();if(!XM.me)await XmMe();if(!XM.ready){Xsg.value=XM_ST+Xpan("管网治理","overview-panel","<div class='xtip' data-v-14ae79c9>正在加载治理数据…</div>");Xsh.value=XM_ST+Xpan("现场资源","overview-panel","<div class='xtip' data-v-14ae79c9>正在加载…</div>");Xflush();await XmLoad();}await XgLoad();await XrenderGov();}catch(e){console.error("[XloadGov]",e);Xsg.value=XM_ST+Xerr("管网治理");Xsh.value=XM_ST+Xerr("现场资源");Xflush()}};let G=p(!1);const we=p([{key:"wsq",class:"first-level-node",title:"污水区",children:[{key:"wsq1",title:"一级污水区"},{key:"wsq2",title:"二级污水区"}]},{key:"layers",title:"管网",class:"first-level-node",children:[{key:"firstlevel",title:"一级管网",children:[]},{key:"secondlevel",title:"二级管网",children:[{key:"WSLINE",title:"污水管网"},{key:"YSLINE",title:"雨水管网"}]}]},{key:"well",class:"first-level-node",title:"管井"},{key:"devices",title:"设备",class:"first-level-node",children:[{key:"meter",title:"水位计"},{key:"flow",title:"流量计"},{key:"quality",title:"水质检测仪"}]}]),Ne=["wsq","layers","devices","well"],i=p({isOnline:!1,position:{longitude:110.45,latitude:29.5665},battery:85,status:"patrolling",currentTask:"管网巡检任务A",currentRoute:"",taskCycle:"",taskStatus:"",routeIds:[],baseTaskName:"管网巡检任务A",videoUrl:null,videoStatus:"disconnected",videoError:null,lastUpdate:new Date}),De=p([{id:"001",name:"巡检机器人-001",status:"active",statusText:"巡检中",battery:85,location:"110.450000, 29.566500",position:"110.450000, 29.566500",task:"管网巡检任务A",updateTime:"11:04:51"},{id:"002",name:"巡检机器人-002",status:"charging",statusText:"充电中",battery:45,location:"110.460000, 29.567500",position:"110.460000, 29.567500",task:"待机",updateTime:"10:58:23"},{id:"003",name:"巡检机器人-003",status:"maintenance",statusText:"维护中",battery:92,location:"110.470000, 29.568500",position:"110.470000, 29.568500",task:"设备维护",updateTime:"09:15:42"}]),H=p({visible:!1,selectedTask:null,dragging:!1,position:{x:0,y:0},offset:{x:0,y:0}}),dt=()=>{H.value.visible=!0,H.value.position={x:0,y:0}},ve=()=>{H.value.visible=!1,H.value.dragging=!1},Ce=l=>l.inspectionRoute.split(",").map(t=>t.trim()).filter(Boolean),_e=l=>{var t;Object.assign(i.value,{currentTask:l.planName,currentRoute:l.inspectionRoute,taskCycle:l.cycle,taskStatus:l.statusText,routeIds:Ce(l),baseTaskName:l.planName}),H.value.selectedTask=l,i.value.routeIds.length>0&&((t=T.value)!=null&&t.highlightRoutes)&&T.value.highlightRoutes(i.value.routeIds),ve()},Oe=l=>{H.value.dragging=!0,H.value.offset.x=l.clientX-H.value.position.x,H.value.offset.y=l.clientY-H.value.position.y,document.addEventListener("mousemove",Me),document.addEventListener("mouseup",Pe),l.preventDefault()},Me=l=>{H.value.dragging&&(H.value.position.x=l.clientX-H.value.offset.x,H.value.position.y=l.clientY-H.value.offset.y)},Pe=()=>{H.value.dragging=!1,document.removeEventListener("mousemove",Me),document.removeEventListener("mouseup",Pe)},R=p(null),w=p(!1),$=p(!1),J=p(!0),x=p(null),Fe=p({totalLength:"0.00",pipeCount:0,manholeCount:0,deviceCount:0}),ie=p({id:"",projectName:"",projectIntroduction:""}),qe=p([]),Ie=p([]),Te=p([]),ot=p([]),pe=p([]),K=p(null);let se=0;const fe=p(!1),je=p(!0),St=p({}),Ye=p([]),ke=p([]),vt=p(!1),We=p({x:0,y:0}),Ge=p(!1),It=p({x:0,y:0}),Re=p(null),ze=p([]),Ze=p(""),nt=p({}),me=p({}),el=p(null),Rt=p(!1),Ot=p(!1),Lt=p([]),_l=p([]),rl=p([]),Mt=p(0),Pt=p(1),pt=p(10);Kt(()=>Math.max(1,Math.ceil(Mt.value/pt.value)));const cl=p(""),At=()=>{const l=(cl.value||"").toString();let t=Lt.value||[];l&&(t=t.filter(b=>b.dataType===l)),t=t.slice().sort((b,N)=>new Date(b.collectionTime)-new Date(N.collectionTime)),_l.value=t,Mt.value=t.length,Pt.value>Math.ceil((Mt.value||1)/pt.value)&&(Pt.value=1);const o=(Pt.value-1)*pt.value,y=o+pt.value;rl.value=t.slice(o,y)};ut([Pt,pt],()=>{At()}),ut(ee,l=>{l?T.value&&T.value.addRobotMarker&&T.value.addRobotMarker(i.value.position):T.value&&T.value.removeRobotMarker&&T.value.removeRobotMarker()});const ft=p(null),He=p("disconnected"),$t=p(0);let Ft=null,tl=null,Yt=null,Et=null,Ve=[],Se=0,Le=!1,Ke=-1;const ye=["/video/监测视频.mp4","/video/监测视频1.mp4"];let mt=0;const xt=p(null),Wt=p(null),yt=p(null);let Ue=null,ce=null,he=null;const ul={valve:"🔧",pump:"🚰",pressure:"📊",flow:"🌊",temperature:"🌡️",level:"📏",quality:"🧪",meter:"⏱️",hydrant:"🚒",manhole:"🕳️",tank:"🛢️",filter:"🪣"},Ht=l=>{const t=(l||"").toString().toLowerCase();return t.includes("valve")||t.includes("阀")?"valve":t.includes("pump")||t.includes("泵")?"pump":t.includes("pressure")||t.includes("压")?"pressure":t.includes("flow")||t.includes("流")?"flow":t.includes("temp")||t.includes("温")?"temperature":t.includes("level")||t.includes("液位")?"level":t.includes("quality")||t.includes("水质")?"quality":t.includes("meter")||t.includes("表")?"meter":t.includes("hydrant")||t.includes("消防")?"hydrant":t.includes("manhole")||t.includes("井")?"manhole":t.includes("tank")||t.includes("罐")?"tank":t.includes("filter")||t.includes("滤")?"filter":t},Vt=()=>{try{if(!Wt.value){console.warn("管材统计图表DOM元素不存在，跳过渲染");return}Wt.value.innerHTML=Xmt(qe.value);return;ce&&(ce.dispose(),ce=null),ce=wl(Wt.value);const l=(qe.value||[]).map(o=>{let y=o.material;return(!y||y==="undefined"||y==="null")&&(y="普通材质"),y}),t=(qe.value||[]).map(o=>o.countNum);ce==null||ce.setOption({tooltip:{trigger:"axis"},grid:{left:40,right:60,top:30,bottom:20},xAxis:{type:"category",data:l,name:"管材类型",nameTextStyle:{color:"#cbd5e1",fontSize:12},axisLabel:{color:"#cbd5e1",show:!0,fontSize:11},axisLine:{show:!0,lineStyle:{color:"#475569"}},axisTick:{show:!0,lineStyle:{color:"#475569"}}},yAxis:{type:"value",name:"数量",nameTextStyle:{color:"#cbd5e1",fontSize:12},axisLabel:{color:"#cbd5e1",show:!0,fontSize:11},axisLine:{show:!0,lineStyle:{color:"#475569"}},axisTick:{show:!0,lineStyle:{color:"#475569"}},splitLine:{show:!0,lineStyle:{color:"#334155",type:"dashed"}}},series:[{type:"bar",name:"管材",data:t,barMaxWidth:26,itemStyle:{color:"#60a5fa"}}]})}catch(l){console.error("管材统计图表渲染失败:",l)}},dl=()=>{if(yt.value)try{he&&he.dispose(),he=wl(yt.value);const l=Ye.value.filter(o=>o.value>0);if(l.length===0){const o={backgroundColor:"transparent",graphic:{type:"text",left:"center",top:"middle",style:{text:"暂无设备数据",fontSize:14,fill:"#94a3b8"}}};he.setOption(o);return}const t={backgroundColor:"transparent",tooltip:{trigger:"item",backgroundColor:"rgba(15, 23, 42, 0.95)",borderColor:"rgba(255, 255, 255, 0.1)",textStyle:{color:"#e2e8f0"},formatter:o=>`${o.data.icon} ${o.data.name}<br/>数量: ${o.data.value}<br/>占比: ${o.percent}%`},legend:{orient:"vertical",left:"left",top:"center",textStyle:{color:"#94a3b8",fontSize:11},itemGap:12,formatter:o=>{const y=l.find(b=>b.name===o);return y?`${y.icon} ${o}`:o}},series:[{name:"设备分布",type:"pie",radius:["45%","75%"],center:["65%","50%"],avoidLabelOverlap:!1,itemStyle:{},label:{show:!1,position:"center"},emphasis:{label:{show:!0,fontSize:16,fontWeight:"bold",color:"#ffffff",formatter:o=>`${o.data.icon}
 ${o.data.value}`}},labelLine:{show:!1},data:l.map((o,y)=>({...o,itemStyle:{color:["#3b82f6","#10b981","#f59e0b","#ef4444","#8b5cf6","#06b6d4","#84cc16","#f97316","#ec4899","#6366f1"][y%10]}}))}]};he.setOption(t)}catch(l){console.error("设备图表渲染失败:",l)}},vl=()=>{try{if(!xt.value){console.warn("管径统计图表DOM元素不存在，跳过渲染");return}Ue&&(Ue.dispose(),Ue=null),Ue=wl(xt.value);const l=Ie.value||[],t=new Map;let o=0;for(const O of l){let Y=O.diameter??O.name;if(!Y||Y==="undefined"||Y==="null")continue;const q=Number(O.countNum??O.value??0),ge=String(Y).match(/\d+/);if(ge&&Number(ge[0])<200){o+=q;continue}Y=String(Y),t.set(Y,(t.get(Y)||0)+q)}o>0&&t.set("小于200",o);const y=Array.from(t.keys()),b=y.map(O=>t.get(O)),N=O=>O==="小于DN200"||/^DN/i.test(O)?O:`DN${O}`;let D=y.map((O,Y)=>({name:N(O),value:b[Y]})).sort((O,Y)=>Y.value-O.value);Ue==null||Ue.setOption({tooltip:{trigger:"item",formatter:"{b}: {c} ({d}%)"},legend:{type:"scroll",top:0,textStyle:{color:"#cbd5e1"}},series:[{name:"管径",type:"pie",radius:["40%","70%"],center:["50%","60%"],avoidLabelOverlap:!0,label:{color:"#e5e7eb"},labelLine:{length:8,length2:6},data:D}]})}catch(l){console.error("管径统计图表渲染失败:",l)}},pl=Kt(()=>{const l=new Date;return{time:l.toLocaleTimeString("zh-CN",{hour12:!1}),date:l.toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"})}}),ll=()=>{const{time:l,date:t}=pl.value;k.value=l,L.value=t},sl=()=>{if(!ft.value)try{He.value="connecting";const l=Ia.openDashboardStream();l.onopen=()=>{He.value="connected",$t.value=0},l.addEventListener("deviceStatus",t=>{try{const o=JSON.parse(t.data);fl(o.data)}catch(o){console.error("❌ 解析设备状态数据失败:",o)}}),l.addEventListener("alarmData",t=>{try{const o=JSON.parse(t.data);Tl(o.data)}catch(o){console.error("解析告警数据失败:",o)}}),l.addEventListener("robotStatus",t=>{try{const o=JSON.parse(t.data);Bt(o.data)}catch(o){console.error("解析机器人状态数据失败:",o)}}),l.onerror=t=>{He.value="error",console.error("大屏SSE连接错误:",t),$t.value<Hu?($t.value++,Ft=setTimeout(()=>{Ut(),sl()},5e3*$t.value)):(console.error("SSE重连次数已达上限，停止重连"),He.value="failed")},ft.value=l}catch(l){console.error("建立大屏SSE连接失败:",l),He.value="failed"}},Ut=()=>{ft.value&&(ft.value.close(),ft.value=null),Ft&&(clearTimeout(Ft),Ft=null),He.value="disconnected"},fl=l=>{if(l.devices&&Array.isArray(l.devices)){pe.value=l.devices,Jl(l.devices);const t={},o=[];for(const y of l.devices){const b=y.type||y.deviceType||"",N=Ht(b);t[N]||(t[N]=0),t[N]++}for(const[y,b]of Object.entries(t)){const N=xs[y]||y,D=ul[y]||"📍";o.push({type:y,name:N,value:b,icon:D})}o.sort((y,b)=>b.value-y.value),St.value=t,Ye.value=o,dl()}},Tl=l=>{l.alarms&&Array.isArray(l.alarms)&&(ke.value=l.alarms)},Bt=l=>{l.robot&&(i.value={...i.value,...l.robot,lastUpdate:new Date})},kl=()=>({connected:"实时连接",connecting:"连接中",disconnected:"未连接",error:"连接错误",failed:"连接失败"})[He.value]||"未知状态",qt=()=>{Q.value=!Q.value,Q.value&&R.value?ee.value=!0:ee.value=!1},Sl=()=>{Kl(),T.value&&T.value.clearRobotTrajectory&&T.value.clearRobotTrajectory(),T.value&&T.value.clearRouteHighlight&&T.value.clearRouteHighlight(),ee.value=!1},Ll=()=>{I.value="pipeline",xe(()=>{Vt(),vl()})},El=async()=>{await Xau(),I.value="maintenance",s(),Nl(),u.value.current=1,u.value.hasMore=!0,Ee()},Xj1=async()=>{I.value="monitoring",await Xau(),XloadMon(),xe(()=>{XmonScroll()})},Xj2=async()=>{I.value="governance",await Xau(),XloadGov()},jt=p("ALL"),xl=p([{key:"ALL",label:"全部"},{key:"MONTH",label:"日常"},{key:"QUARTER",label:"季度"},{key:"TEMP",label:"临时"}]),Gt=p([]),Nl=async()=>{try{const l=await Ra.pnInspectionPlanPage({pageSize:20,pageNumber:1});l&&l.records&&(Gt.value=l.records.map(t=>({id:t.id,planName:t.planName,status:t.status,statusText:t.status==="RUNNING"?"运行":"停止",inspectionRoute:t.routeNames,timeRange:t.startTime&&t.endTime?`${st(t.startTime).format("YYYY-MM-DD")} - ${st(t.endTime).format("YYYY-MM-DD")}`:"--",executor:t.executorNames,cycle:t.cycle,planType:t.cycle,routeIds:t.routeIds})))}catch(l){console.error("获取巡检计划失败:",l),Gt.value=[{id:"1",planName:"日常巡检",status:"running",statusText:"运行",inspectionRoute:"YSLINEYSLNE3195",timeRange:"2024-08-27 - 2025-09-08",executor:"超管,业管,测试",cycle:"每月",planType:"daily"}]}},zt=Kt(()=>jt.value==="ALL"?Gt.value:Gt.value.filter(t=>t.planType===jt.value)),Nt=p([]),ue=p({current:1,size:10,total:0,loading:!1,hasMore:!0}),al=p(!1),re=p(null),s=async(l=!1)=>{if(!(!l&&!ue.value.hasMore)&&!ue.value.loading){ue.value.loading=!0;try{const t=l?ue.value.current+1:1,o={size:ue.value.size,current:t};wt.value.keyword&&(o.inspectionRecordNo=wt.value.keyword.trim()),wt.value.result&&(o.inspectionResult=wt.value.result.trim());const y=await ms.pnInspectionRecordsPage(o);if(y&&y.records){const b=y.records.map(D=>{const O=D.inspectionResult||D.status||"",q=String(O).toUpperCase()==="NORMAL"?"normal":"abnormal",ge=O?Ae.translateTree("INSPECTION_RESULT",O):"",Xe=ge!=null&&ge!==""?ge:O||"";return{id:D.id,inspectionRecordNo:D.inspectionRecordNo,planName:D.planName,result:q,resultText:Xe,inspectionDate:D.inspectionDate?st(D.inspectionDate).format("YYYY-MM-DD HH:mm"):"--",inspectionResult:O,pipelineNames:D.pipelineNames,createUserName:D.createUserName,issueDesc:D.issueDesc,location:D.location,issueLevel:D.issueLevel,issueLevelText:D.issueLevel?Ae.dictTypeData("ISSUE_LEVEL",D.issueLevel):"--"}});l?(Nt.value=[...Nt.value,...b],ue.value.current=t):(Nt.value=b,ue.value.current=1),ue.value.total=y.total||0;const N=Math.ceil((y.total||0)/ue.value.size);ue.value.hasMore=t<N}}catch(t){console.error("获取巡检记录失败:",t),l||(Nt.value=[{id:"001",inspectionRecordNo:"XJ0001",planName:"日常巡检",result:"normal",resultText:"正常",inspectionDate:st().format("YYYY-MM-DD HH:mm"),inspectionResult:"NORMAL",pipelineNames:"--",createUserName:"--",issueDesc:"--",location:"--",issueLevel:"",issueLevelText:"--"},{id:"002",inspectionRecordNo:"XJ0002",planName:"季度巡检",result:"abnormal",resultText:"异常",inspectionDate:st().subtract(1,"day").format("YYYY-MM-DD HH:mm"),inspectionResult:"EXCEPTION",pipelineNames:"--",createUserName:"--",issueDesc:"--",location:"--",issueLevel:"EMERGENCY",issueLevelText:"紧急"}])}finally{ue.value.loading=!1}}},a=l=>{re.value=l,al.value=!0},r=()=>{al.value=!1,re.value=null},c=p([]),v=p({status:null}),u=p({current:1,size:20,total:0,loading:!1,hasMore:!0}),d=Ae.dictList("WORK_ORDER_STATUS"),n=p(!1),M=p(!1),g=p(null),B=p(null);let ne=null;const U={REPAIR:"维修",MAINTENANCE:"保养",URGENT_REPAIR:"抢修",PREVENTIVE_MAINTENANCE:"预防性维护"},Je={MANUAL:"手动创建",INSPECTION_RECORD:"巡检记录生成",SYSTEM:"系统推送",OTHER:"其他"},et=l=>l?st(l).format("YYYY-MM-DD HH:mm"):"--",te=l=>({id:l.id,workOrderCode:l.workOrderCode||"--",issueDesc:l.issueDesc||l.description||"--",location:l.location||"--",priority:l.priority,priorityText:l.priority?Ae.dictTypeData("WORK_ORDER_PRIORITY",l.priority):"--",status:l.status,statusText:l.status?Ae.dictTypeData("WORK_ORDER_STATUS",l.status):"--"}),tt=l=>({id:l.id,workOrderCode:l.workOrderCode||"--",description:l.description||"--",workOrderTypeText:U[l.workOrderType]||l.workOrderType||"--",sourceText:Je[l.source]||l.source||"--",status:l.status,statusText:l.status?Ae.dictTypeData("WORK_ORDER_STATUS",l.status):"--",priorityText:l.priority?Ae.dictTypeData("WORK_ORDER_PRIORITY",l.priority):"--",progress:l.progress??0,issueDesc:l.issueDesc||l.description||"--",location:l.location||"--",issueLevelText:l.issueLevel?Ae.dictTypeData("ISSUE_LEVEL",l.issueLevel):"--",pipelineNames:l.pipelineNames,taskHandlersName:l.taskHandlersName||"--",plannedStartTimeText:et(l.plannedStartTime),plannedEndTimeText:et(l.plannedEndTime),actualStartTimeText:et(l.actualStartTime),actualEndTimeText:et(l.actualEndTime),handleResult:l.handleResult||"--",handleMeasure:l.handleMeasure||"--",inspectionRecordNo:l.inspectionRecordNo,planName:l.planName,inspectionDateText:et(l.inspectionDate),acceptanceTimeText:et(l.acceptanceTime),acceptanceResultText:l.acceptanceResult?Ae.dictTypeData("WORK_ORDER_ACCEPTANCE_RESULT",l.acceptanceResult):"--",acceptanceOpinion:l.acceptanceOpinion||"--"}),Ee=async(l=!1)=>{if(!(l&&!u.value.hasMore)&&!u.value.loading){u.value.loading=!0;try{const t=l?u.value.current+1:1,o={size:u.value.size,current:t,mineOnly:!1};v.value.status&&(o.status=v.value.status);const y=await ds.pipelineWorkOrderPage(o);if(y&&y.records){const b=y.records.map(te);l?(c.value=[...c.value,...b],u.value.current=t):(c.value=b,u.value.current=1),u.value.total=y.total||0;const N=Math.ceil((y.total||0)/u.value.size);u.value.hasMore=t<N}}catch(t){console.error("获取工单列表失败:",t),l||(c.value=[])}finally{u.value.loading=!1,hs()}}},Jt=()=>{u.value.current=1,u.value.hasMore=!0,Ee(!1)},jl=l=>{const t=l.target;t.scrollHeight-t.scrollTop-t.clientHeight<50&&u.value.hasMore&&!u.value.loading&&Ee(!0)},hs=()=>{xe(()=>{var l;Gl(),ne=(l=B.value)==null?void 0:l.querySelector(".el-scrollbar__wrap"),ne&&ne.addEventListener("scroll",jl)})},Gl=()=>{ne&&(ne.removeEventListener("scroll",jl),ne=null)},gs=async l=>{if(l!=null&&l.id){n.value=!0,M.value=!0,g.value=null;try{const t=await ds.pipelineWorkOrderDetail({id:l.id});g.value=tt(t)}catch(t){console.error("获取工单详情失败:",t),g.value=tt(l)}finally{M.value=!1}}},zl=()=>{n.value=!1,g.value=null},bs=l=>{i.value={isOnline:l.status==="active",position:{longitude:parseFloat(l.position.split(",")[0]),latitude:parseFloat(l.position.split(",")[1])},battery:l.battery,status:l.status==="active"?"patrolling":l.status,currentTask:l.task,videoUrl:null,videoStatus:"disconnected",videoError:null,lastUpdate:new Date},R.value=l,Q.value=!0,ee.value=!0},ws=l=>{l.length>0&&Ts(l[0])},_s=(l,t)=>{const y=t.node.key,b=Array.isArray(l)?l:l.checked||[],N=ht(y,"layers"),D=ht(y,"devices"),O=ht(y,"well"),Y=ht(y,"wsq");N?W.value=b.filter(q=>ht(q,"layers")):D?be.value=b.filter(q=>ht(q,"devices")):O?E.value=b.filter(q=>ht(q,"well")):Y&&(Z.value=b.filter(q=>ht(q,"wsq"))),N?ml("layer",W.value):D?ml("device",be.value):O?ml("well",E.value):Y&&ml("wsq",Z.value)},ht=(l,t)=>{if(l===t)return!0;const o=we.value.find(y=>y.key===t);if(!o||!o.children)return!1;if(o.children.some(y=>y.key===l))return!0;for(const y of o.children)if(y.children&&y.children.some(b=>b.key===l))return!0;return!1},Ts=(l=null)=>{ks(l)},ml=(l,t)=>{T.value&&T.value.handleLayerControl?T.value.handleLayerControl(l,t):console.warn("地图组件或handleLayerControl方法不存在")},ks=l=>{T.value&&T.value.clearPolylineEntities&&T.value.clearPolylineEntities(),l==="layers"&&(l="all"),Ls([l])},Ss=(l,t)=>{},Ls=async(l=[])=>{try{const t={projectId:C.value};l&&l.length>0&&(t.pipelineTypes=l);const o=await Hl.getPipeLineGeoJsonByProjectId(t);if(!o)return;V.value=o&&o.data!==void 0?o.data:o}catch(t){console.error("加载项目 GeoJSON 失败:",t)}},Es=()=>{Hl.getBigScreenInfo({projectId:C.value}).then(l=>{l&&(ie.value=l.project||{},Fe.value={totalLength:l.pipelineLengthSum||"0.00",pipeCount:l.total||0,manholeCount:Math.floor((l.total||0)*.3),deviceCount:l.deviceCount||0},qe.value=l.typeDistribution||[],Ie.value=l.diameterDistribution||[],Vt(),vl())}).catch(l=>{console.error("获取大屏数据失败:",l)})},xs={valve:"阀门",pump:"水泵",pressure:"压力传感器",flow:"流量计",temperature:"温度传感器",level:"液位计",quality:"水质监测仪",meter:"水表",hydrant:"消防栓",manhole:"检查井",tank:"储水罐",filter:"过滤器"},Ns={0:"在线",1:"离线",2:"故障",3:"维护中"},it=p([]),Ds=Kt(()=>new Map((it.value||[]).map(l=>[l.value,l.label]))),gt=l=>Ds.value.get(l)||l,Cs=async l=>{try{const t=await us.dataTypeList({deviceId:l}),o=(t==null?void 0:t.records)||(t==null?void 0:t.data)||t||{},y=Object.entries(o).map(([b,N])=>({value:b,label:N}));if(Re.value&&Re.value.deviceType){const b=Re.value.deviceType.toLowerCase();if(b==="meter"){const N=["WATER_LEVEL","WL_SIGNAL","BATTERY_LEVEL"],D=y.filter(O=>N.includes(O.value));it.value=N.map(O=>D.find(Y=>Y.value===O)).filter(Boolean)}else if(b==="flow"||b==="flow_meter"){const N=["WATER_LEVEL","WATER_FLOW","WATER_SPEED","WL_SIGNAL","BATTERY_LEVEL"],D=y.filter(O=>N.includes(O.value));it.value=N.map(O=>D.find(Y=>Y.value===O)).filter(Boolean)}else if(b==="quality"){const N=["COD_VALUE","NH4N_VALUE","PH_VALUE","WATER_FLOW","WATER_LEVEL","WATER_SPEED","DEV_TEMP","DOOR_DEFENCE_STATUS","SHUTDOWN_STATUS","BATTERY_LEVEL","WL_SIGNAL"],D=y.filter(O=>N.includes(O.value));it.value=N.map(O=>D.find(Y=>Y.value===O)).filter(Boolean)}else it.value=y}else it.value=y}catch{console.warn("操作失败")}},Dl=p({keyWord:null});ut(()=>Dl.value.keyWord,l=>{const t=pe.value.filter(o=>(o.name||o.deviceName||o.code||"设备").includes(l));Jl(t)});const Jl=l=>{Te.value=l.map(t=>{const o=t.type||t.deviceType||"",y=t.status||t.deviceStatus||"normal",b=Ht(o),N=ul[b]||"📍";let D="未知";switch(b){case"pressure":D="0.6 MPa";break;case"flow":D="120 L/min";break;case"temperature":D="18°C";break;case"valve":D="开启";break;default:D="正常"}return{id:t.id,name:t.name||t.deviceName||t.code||"设备",value:D,status:y,statusText:Ns[y]||"未知",icon:N,device:t,location:t.pipelineName||t.location||"未知位置"}}),se=0,ot.value=[],je.value=!0,yl(),Is()},Is=async()=>{await xe();const l=K.value;if(l)for(;je.value&&l.scrollHeight<=l.clientHeight;)yl(),await xe()},yl=()=>{if(fe.value||!je.value)return;fe.value=!0;const l=Math.min(se+Wu,Te.value.length),t=Te.value.slice(se,l);ot.value=ot.value.concat(t),se=l,fe.value=!1,je.value=se<Te.value.length},Rs=l=>{if(!l)return[];try{const t=JSON.parse(l);return Array.isArray(t)?t:[]}catch(t){return console.error("解析关键参数失败:",t),[]}},Os=l=>{es(l.device)},Ms=l=>{if(l.showHistory&&l.device){es(l.device);return}el.value=l},Ps=l=>{const t=l.pipelineIndex||l.index||0;Hs(t),i.value.currentTask=`已选择管线${t+1}，点击开始巡检`,i.value.lastUpdate=new Date},As=l=>{var t;if(de.value=l,Q.value=!0,!l&&((t=T==null?void 0:T.value)!=null&&t.handleLayerControl))try{T.value.handleLayerControl("layer",W.value),T.value.handleLayerControl("device",be.value),T.value.handleLayerControl("well",E.value)}catch(o){console.warn("关闭3D后恢复图层失败:",o)}},$s=l=>{oe.value=!!l},Fs=l=>({patrolling:"巡检中",charging:"充电中",maintenance:"维护中",offline:"离线"})[l]||"未知",Ys=l=>new Date(l).toLocaleTimeString("zh-CN"),Xl=()=>!Le||Ve.length===0?0:Math.round(Se/Ve.length*100),Ws=()=>{if(!Le||Ve.length===0)return"";const l=Ve[Se];return l?l.routeName?`${l.routeName} - 第${Se+1}个巡检点`:l.pipelineIndex!==void 0?`管线${l.pipelineIndex+1} - ${l.description}`:`巡检点 ${Se+1}/${Ve.length}`:""},Hs=l=>{Ke=l,mt=(mt+1)%ye.length,i.value.currentTask=`已选择管线${l+1}，点击开始巡检`,i.value.lastUpdate=new Date,ol()},Vs=()=>{Ke=-1,i.value.currentTask="待机中",i.value.lastUpdate=new Date,ol(),Ql()},Ql=()=>{T.value&&T.value.clearRobotTrajectory&&T.value.clearRobotTrajectory()},Us=()=>{w.value=!w.value,w.value&&!i.value.videoUrl&&(i.value.videoUrl=ye[mt],i.value.lastUpdate=new Date)},Zl=()=>{$.value=!$.value},hl=()=>{w.value=!1,$.value=!1,lt&&(clearInterval(lt),lt=null),X&&(X.destroy(),X=null),bt&&x.value&&(Object.entries(bt).forEach(([l,t])=>{x.value.removeEventListener(l,t)}),bt=null),x.value&&(x.value.pause(),x.value.src="",x.value.removeEventListener("loadstart",Il),x.value.removeEventListener("canplay",Rl),x.value.removeEventListener("error",Ol),x.value.removeEventListener("waiting",Ml)),i.value.videoStatus="disconnected",i.value.videoError=null};let X=null,lt=null,bt=null;const Cl=async()=>{w.value=!0,i.value.videoStatus="connecting",i.value.videoError=null;const l="http://111.175.187.70:11301/live/robot_cctv/hls.m3u8";if(i.value.videoUrl=l,i.value.lastUpdate=new Date,await new Promise(t=>setTimeout(t,100)),!x.value){i.value.videoStatus="error",i.value.videoError="视频元素未找到";return}try{if(X&&(X.destroy(),X=null),ct&&ct.isSupported())X=new ct({debug:!1,enableWorker:!0,lowLatencyMode:!1,maxBufferLength:15,maxMaxBufferLength:30,liveSyncDurationCount:2,liveMaxLatencyDurationCount:3,maxBufferSize:30*1e3*1e3,maxBufferHole:.1,highBufferWatchdogPeriod:2,nudgeOffset:.1,nudgeMaxRetry:3,maxFragLookUpTolerance:.2,liveDurationInfinity:!0,liveBackBufferLength:15,fragLoadingTimeOut:8e3,manifestLoadingTimeOut:8e3,levelLoadingTimeOut:8e3,fragLoadingMaxRetry:3,levelLoadingMaxRetry:3,manifestLoadingMaxRetry:3}),X.loadSource(l),X.attachMedia(x.value),X.on(ct.Events.MANIFEST_PARSED,()=>{i.value.videoStatus="connected",i.value.videoError=null}),X.on(ct.Events.ERROR,(t,o)=>{if(console.error("HLS错误:",o),o.type===ct.ErrorTypes.MEDIA_ERROR&&o.details==="bufferStalledError"){if(console.warn("检测到缓冲停滞，尝试恢复..."),X&&x.value)try{X.startLoad()}catch(y){console.warn("恢复播放失败:",y)}return}if(o.type===ct.ErrorTypes.NETWORK_ERROR&&(o.details==="levelLoadTimeOut"||o.details==="fragLoadTimeOut")){if(console.warn("网络超时，尝试重新加载..."),X)try{X.startLoad()}catch(y){console.warn("重新加载失败:",y)}return}if(o.fatal)switch(i.value.videoStatus="error",o.type){case ct.ErrorTypes.NETWORK_ERROR:i.value.videoError="HLS网络错误，请检查流是否可用",X.startLoad();break;case ct.ErrorTypes.MEDIA_ERROR:i.value.videoError="HLS媒体错误，请检查视频格式",X.recoverMediaError();break;default:i.value.videoError="HLS播放错误: "+o.details,X.destroy(),setTimeout(()=>{Cl()},2e3);break}});else if(x.value.canPlayType("application/vnd.apple.mpegurl"))x.value.src=l,x.value.addEventListener("loadedmetadata",()=>{i.value.videoStatus="connected",i.value.videoError=null});else throw new Error("浏览器不支持HLS播放");x.value.addEventListener("loadstart",Il),x.value.addEventListener("canplay",Rl),x.value.addEventListener("error",Ol),x.value.addEventListener("waiting",Ml)}catch(t){console.error("视频初始化失败:",t),i.value.videoStatus="error",i.value.videoError=t.message||"视频初始化失败"}},Il=()=>{i.value.videoStatus!=="connecting"&&(i.value.videoStatus="connecting")},Rl=()=>{i.value.videoStatus="connected",i.value.videoError=null},Ol=l=>{var y,b;i.value.videoStatus="error";const t=l.target;let o="视频连接失败";if(t.error)switch(t.error.code){case 1:o="视频加载被中止";break;case 2:o="网络错误，无法加载视频";break;case 3:o="视频解码错误";break;case 4:o="视频格式不支持";break;default:o=`视频播放错误 (代码: ${t.error.code})`}i.value.videoError=o,console.error("视频播放错误:",l),console.error("错误详情:",{errorCode:(y=t.error)==null?void 0:y.code,errorMessage:(b=t.error)==null?void 0:b.message,videoSrc:t.src,networkState:t.networkState,readyState:t.readyState})},Ml=()=>{i.value.videoStatus!=="connecting"&&(i.value.videoStatus="connecting")},Bs=l=>({disconnected:"未连接",connecting:"连接中",connected:"已连接",error:"连接错误"})[l]||"未知状态",qs=async()=>{i.value.videoStatus="connecting",i.value.videoError=null,X&&(X.destroy(),X=null),await Cl()},js=()=>{hl(),i.value.status==="patrolling"&&i.value.currentTask.includes("等待视频连接")&&(i.value.currentTask=`${i.value.baseTaskName} - 无视频模式，开始移动`,i.value.lastUpdate=new Date,Dt())},Gs=()=>{J.value=newValue,T.value&&T.value.updateRobotTrajectory&&T.value.updateRobotTrajectory(J.value)},zs=()=>{if(i.value.isOnline){if(!i.value.routeIds||i.value.routeIds.length===0){alert("请先选择巡检任务！");return}i.value.status="patrolling",i.value.currentTask=`${i.value.baseTaskName} - 等待视频连接`,i.value.lastUpdate=new Date,w.value||Cl(),Xs()}},Js=async()=>{try{bt&&(Object.entries(bt).forEach(([b,N])=>{var D;(D=x.value)==null||D.removeEventListener(b,N)}),bt=null),x.value.removeEventListener("loadstart",Il),x.value.removeEventListener("canplay",Rl),x.value.removeEventListener("error",Ol),x.value.removeEventListener("waiting",Ml),lt&&(clearInterval(lt),lt=null),x.value.pause(),x.value.src="",x.value.load(),await xe(),await new Promise(b=>setTimeout(b,300));const l=ye[mt];console.log(`切换到本地视频 ${mt+1}: ${l}`);const t=()=>{var b;console.log("本地视频可以播放，readyState:",(b=x.value)==null?void 0:b.readyState),i.value.videoStatus="connected",i.value.videoError=null,i.value.currentTask=`${i.value.baseTaskName} - 本地视频播放中`,i.value.lastUpdate=new Date,x.value.play().then(()=>{console.log("本地视频播放成功"),Dt()}).catch(N=>{console.warn("播放失败，重试中:",N),setTimeout(()=>{var D;(D=x.value)==null||D.play().catch(O=>console.error("重试播放失败:",O))},500)})},o=()=>{x.value&&!x.value.loop&&(x.value.currentTime=0,x.value.play().catch(b=>console.warn("循环播放失败:",b)))},y=b=>{var N,D,O,Y,q,ge,Xe,z;console.error("本地视频加载失败:",b),console.error("视频元素状态:",{error:(N=x.value)==null?void 0:N.error,errorCode:(O=(D=x.value)==null?void 0:D.error)==null?void 0:O.code,errorMessage:(q=(Y=x.value)==null?void 0:Y.error)==null?void 0:q.message,src:(ge=x.value)==null?void 0:ge.src}),i.value.videoStatus="error",i.value.videoError="本地视频加载失败: "+(((z=(Xe=x.value)==null?void 0:Xe.error)==null?void 0:z.message)||"未知错误"),i.value.currentTask=`${i.value.baseTaskName} - 无视频模式，开始移动`,i.value.lastUpdate=new Date,Dt()};await xe(),x.value&&(x.value.muted=!0,x.value.autoplay=!0,x.value.loop=!0,x.value.playsInline=!0,x.value.preload="auto",x.value.src=l,i.value.videoUrl=l,bt={canplay:t,ended:o,error:y},Object.entries(bt).forEach(([b,N])=>{x.value.addEventListener(b,N,b==="canplay"?{once:!0}:!1)}),x.value.load(),lt=setInterval(()=>{x.value&&w.value?x.value.paused&&!x.value.ended&&x.value.readyState>=2&&x.value.play().catch(b=>console.warn("自动恢复播放失败:",b)):lt&&(clearInterval(lt),lt=null)},1e3))}catch(l){console.error("切换本地视频失败:",l),i.value.videoStatus="error",i.value.videoError="本地视频加载失败",i.value.currentTask=`${i.value.baseTaskName} - 无视频模式，开始移动`,i.value.lastUpdate=new Date,Dt()}},Xs=()=>{let l=0;const t=5;let o=!1;const y=()=>{if(!o)if(i.value.videoStatus==="connected")i.value.currentTask=`${i.value.baseTaskName} - 视频已连接，开始移动`,i.value.lastUpdate=new Date,Dt();else if(i.value.videoStatus==="error")i.value.currentTask=`${i.value.baseTaskName} - 视频连接失败`,i.value.lastUpdate=new Date,console.warn("视频连接失败"),confirm(`视频连接失败，是否继续巡检？
 
 点击"确定"继续巡检（无视频）

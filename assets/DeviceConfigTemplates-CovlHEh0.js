@@ -40,10 +40,10 @@ import{_ as v}from"./index-D-OKb4nr.js";import{f as T,ag as r,W as x,X as C,k as
   "sslVerify": false
 }`,S=`{
   "endpoints": {
-    "status": "https://mars3d-monitor.app.workbuddy.host/api/status",
-    "data": "https://mars3d-monitor.app.workbuddy.host/api/data",
-    "config": "https://mars3d-monitor.app.workbuddy.host/api/config",
-    "control": "https://mars3d-monitor.app.workbuddy.host/api/control"
+    "status": https://mars3d-monitor.app.workbuddy.host/api//status",
+    "data": https://mars3d-monitor.app.workbuddy.host/api//data",
+    "config": https://mars3d-monitor.app.workbuddy.host/api//config",
+    "control": https://mars3d-monitor.app.workbuddy.host/api//control"
   },
   "dataFormat": "json",
   "pollInterval": 5,
